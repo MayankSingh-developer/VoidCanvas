@@ -1,5 +1,6 @@
 /* =====================================================
-   VOIDCANVAS — OPTIMIZED JAVASCRIPT
+   VOIDCANVAS — FINAL JAVASCRIPT
+   FULL ANIMATIONS + MOBILE OPTIMIZATION
 ===================================================== */
 
 
@@ -11,13 +12,16 @@ function splitText(element) {
 
     if (!element) return;
 
-    // Already processed
-    if (element.dataset.split === "true") return;
+    if (element.dataset.split === "true") {
+        return;
+    }
 
-    // IMPORTANT:
-    // Agar element ke andar existing HTML hai
-    // jaise <span>, <b> etc. to uska HTML destroy
-    // nahi karna.
+    /*
+        IMPORTANT:
+        Agar element ke andar already HTML hai
+        jaise <span> ya <b>, uska HTML destroy
+        nahi karenge.
+    */
 
     if (element.children.length > 0) {
         return;
@@ -25,7 +29,9 @@ function splitText(element) {
 
     const text = element.textContent.trim();
 
-    if (!text) return;
+    if (!text) {
+        return;
+    }
 
     element.dataset.split = "true";
 
@@ -35,73 +41,90 @@ function splitText(element) {
 
     words.forEach((word, wordIndex) => {
 
-        const wordElement = document.createElement("span");
+        const wordElement =
+            document.createElement("span");
 
         wordElement.className = "word";
 
+
         [...word].forEach(character => {
 
-            const letter = document.createElement("span");
+            const letter =
+                document.createElement("span");
 
             letter.className = "letter";
 
-            letter.textContent = character;
+            letter.textContent =
+                character;
 
-            wordElement.appendChild(letter);
+            wordElement.appendChild(
+                letter
+            );
+
         });
 
-        element.appendChild(wordElement);
 
-        if (wordIndex < words.length - 1) {
+        element.appendChild(
+            wordElement
+        );
+
+
+        if (
+            wordIndex <
+            words.length - 1
+        ) {
 
             element.appendChild(
                 document.createTextNode(" ")
             );
         }
+
     });
 }
 
 
 /* =====================================================
-   ANIMATED ELEMENTS
+   ANIMATED TEXT
 ===================================================== */
 
-const animated = document.querySelectorAll(
-    ".eyebrow," +
-    "h1," +
-    ".hero-description," +
-    ".hero-text," +
-    ".hero-buttons a," +
-    ".scroll-indicator span," +
-    ".section-label," +
-    ".section-heading h2," +
-    ".section-heading p," +
-    ".service-card h3," +
-    ".service-card p," +
-    ".service-link," +
-    ".about h2," +
-    ".about p," +
-    ".contact h2," +
-    ".contact p," +
-    ".contact-button," +
-    "footer"
-);
+const animated =
+    document.querySelectorAll(
+
+        ".eyebrow," +
+        "h1," +
+        ".hero-description," +
+        ".hero-text," +
+        ".hero-buttons a," +
+        ".scroll-indicator span," +
+        ".section-label," +
+        ".section-heading h2," +
+        ".section-heading p," +
+        ".service-card h3," +
+        ".service-card p," +
+        ".service-link," +
+        ".about h2," +
+        ".about p," +
+        ".contact h2," +
+        ".contact p," +
+        ".contact-button," +
+        "footer"
+
+    );
 
 
 /*
-   Only split simple text elements.
-
-   This prevents:
-   <h1>We create things <span>worth remembering.</span></h1>
-
-   from losing its gradient span.
+    Only split elements that don't already
+    contain HTML.
 */
 
 animated.forEach(element => {
 
     if (element.children.length === 0) {
+
         splitText(element);
+
     }
+
 });
 
 
@@ -113,45 +136,81 @@ function playLetters(element) {
 
     if (!element) return;
 
-    if (element.dataset.played === "true") {
+    if (
+        element.dataset.played ===
+        "true"
+    ) {
+
         return;
     }
 
-    element.dataset.played = "true";
+
+    element.dataset.played =
+        "true";
+
 
     const letters =
-        element.querySelectorAll(".letter");
+        element.querySelectorAll(
+            ".letter"
+        );
 
-    letters.forEach((letter, index) => {
 
-        setTimeout(() => {
+    letters.forEach(
+        (letter, index) => {
 
-            letter.classList.add("show");
+            setTimeout(
+                () => {
 
-        }, index * 18);
-    });
+                    letter.classList.add(
+                        "show"
+                    );
+
+                },
+                index * 18
+            );
+
+        }
+    );
 }
 
 
 /* =====================================================
-   INTERSECTION OBSERVER
+   SCROLL OBSERVER
 ===================================================== */
 
-if ("IntersectionObserver" in window) {
+if (
+    "IntersectionObserver"
+    in window
+) {
 
     const observer =
         new IntersectionObserver(
             entries => {
 
-                entries.forEach(entry => {
+                entries.forEach(
+                    entry => {
 
-                    if (entry.isIntersecting) {
+                        if (
+                            entry.isIntersecting
+                        ) {
 
-                        playLetters(entry.target);
+                            playLetters(
+                                entry.target
+                            );
 
-                        observer.unobserve(entry.target);
+                            /*
+                                Once animation has played,
+                                stop observing the element.
+                            */
+
+                            observer.unobserve(
+                                entry.target
+                            );
+
+                        }
+
                     }
-                });
+                );
 
             },
             {
@@ -159,63 +218,90 @@ if ("IntersectionObserver" in window) {
             }
         );
 
-    animated.forEach(element => {
 
-        if (
-            element.querySelector(".letter")
-        ) {
-            observer.observe(element);
+    animated.forEach(
+        element => {
+
+            if (
+                element.querySelector(
+                    ".letter"
+                )
+            ) {
+
+                observer.observe(
+                    element
+                );
+
+            }
+
         }
-    });
+    );
 
 } else {
 
-    animated.forEach(element => {
+    /*
+        Fallback for old browsers.
+    */
 
-        playLetters(element);
+    animated.forEach(
+        playLetters
+    );
 
-    });
 }
 
 
 /* =====================================================
-   PARTICLES — MOBILE OPTIMIZED
+   PARTICLES
+   DESKTOP = 38
+   TABLET = 18
+   MOBILE = 10
 ===================================================== */
 
 const hero =
-    document.querySelector(".hero");
+    document.querySelector(
+        ".hero"
+    );
+
 
 if (hero) {
 
     let particleCount = 38;
 
-    if (window.innerWidth <= 480) {
+
+    if (
+        window.innerWidth <= 480
+    ) {
 
         particleCount = 10;
 
-    } else if (window.innerWidth <= 768) {
+    } else if (
+        window.innerWidth <= 768
+    ) {
 
         particleCount = 18;
+
     }
 
-
-    /*
-       Use DocumentFragment so browser doesn't
-       continuously repaint while creating particles.
-    */
 
     const fragment =
         document.createDocumentFragment();
 
 
-    for (let i = 0; i < particleCount; i++) {
+    for (
+        let i = 0;
+        i < particleCount;
+        i++
+    ) {
 
         const particle =
-            document.createElement("span");
+            document.createElement(
+                "span"
+            );
 
 
         const size =
             Math.random() * 3 + 1;
+
 
         particle.style.cssText = `
             position:absolute;
@@ -228,30 +314,39 @@ if (hero) {
             top:${Math.random() * 100}%;
             pointer-events:none;
             z-index:0;
+            will-change:transform,opacity;
         `;
 
 
         particle.animate(
+
             [
+
                 {
                     opacity: 0,
+
                     transform:
                         "translateY(40px) scale(.3)"
                 },
 
                 {
                     opacity: 1,
+
                     transform:
                         "translateY(-20px) scale(1)"
                 },
 
                 {
                     opacity: 0,
+
                     transform:
                         "translateY(-220px) scale(.5)"
                 }
+
             ],
+
             {
+
                 duration:
                     5000 +
                     Math.random() * 6000,
@@ -259,16 +354,24 @@ if (hero) {
                 delay:
                     Math.random() * 5000,
 
-                iterations: Infinity
+                iterations:
+                    Infinity
             }
+
         );
 
 
-        fragment.appendChild(particle);
+        fragment.appendChild(
+            particle
+        );
+
     }
 
 
-    hero.appendChild(fragment);
+    hero.appendChild(
+        fragment
+    );
+
 }
 
 
@@ -280,6 +383,7 @@ const cardsContainer =
     document.getElementById(
         "cardsContainer"
     );
+
 
 let expanded = false;
 
@@ -295,24 +399,42 @@ if (cardsContainer) {
                     ".manga-card"
                 );
 
-            if (!card) return;
+
+            if (!card) {
+                return;
+            }
 
 
-            expanded = !expanded;
+            expanded =
+                !expanded;
 
 
             cardsContainer.classList.toggle(
                 "expanded",
                 expanded
             );
+
+
+            /*
+                Remove temporary mouse transform
+                when cards are expanded.
+            */
+
+            if (expanded) {
+
+                cardsContainer.style.transform =
+                    "";
+
+            }
+
         }
     );
+
 }
 
 
 /* =====================================================
-   3D MOUSE
-   DESKTOP ONLY
+   DESKTOP 3D MOUSE EFFECT
 ===================================================== */
 
 const visual =
@@ -321,49 +443,54 @@ const visual =
     );
 
 
-const hasFinePointer =
+const finePointer =
     window.matchMedia(
         "(pointer: fine)"
-    ).matches;
+    );
 
 
 if (
     visual &&
     cardsContainer &&
-    hasFinePointer
+    finePointer.matches
 ) {
 
     visual.addEventListener(
         "mousemove",
         event => {
 
-            if (expanded) return;
+            if (expanded) {
+                return;
+            }
 
 
             const rect =
                 visual.getBoundingClientRect();
 
 
+            const x =
+                (event.clientX -
+                    rect.left) /
+                rect.width;
+
+
+            const y =
+                (event.clientY -
+                    rect.top) /
+                rect.height;
+
+
             const rotateX =
-                (
-                    (
-                        (event.clientY - rect.top) /
-                        rect.height
-                    ) - 0.5
-                ) * -5;
+                (y - 0.5) * -5;
 
 
             const rotateY =
-                (
-                    (
-                        (event.clientX - rect.left) /
-                        rect.width
-                    ) - 0.5
-                ) * 7;
+                (x - 0.5) * 7;
 
 
             cardsContainer.style.transform =
                 `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
         }
     );
 
@@ -374,8 +501,10 @@ if (
 
             cardsContainer.style.transform =
                 "";
+
         }
     );
+
 }
 
 
@@ -391,10 +520,14 @@ const navbar =
 
 function updateNavbar() {
 
-    if (!navbar) return;
+    if (!navbar) {
+        return;
+    }
 
 
-    if (window.scrollY > 40) {
+    if (
+        window.scrollY > 40
+    ) {
 
         navbar.style.background =
             "rgba(3,3,5,.96)";
@@ -403,9 +536,16 @@ function updateNavbar() {
 
         navbar.style.background =
             "rgba(3,3,5,.72)";
+
     }
+
 }
 
+
+/*
+    Passive scroll improves
+    mobile scrolling performance.
+*/
 
 window.addEventListener(
     "scroll",
@@ -431,46 +571,56 @@ const transition =
 
 const serviceLinks =
     document.querySelectorAll(
+
         'a[href="editing.html"],' +
         'a[href="drawing.html"],' +
         'a[href="web.html"]'
+
     );
 
 
 if (transition) {
 
-    serviceLinks.forEach(link => {
+    serviceLinks.forEach(
+        link => {
 
-        link.addEventListener(
-            "click",
-            event => {
+            link.addEventListener(
+                "click",
+                event => {
 
-                event.preventDefault();
-
-
-                const destination =
-                    link.href;
+                    event.preventDefault();
 
 
-                transition.classList.remove(
-                    "close"
-                );
+                    const destination =
+                        link.href;
 
 
-                transition.classList.add(
-                    "open"
-                );
+                    transition.classList.remove(
+                        "close"
+                    );
 
 
-                setTimeout(() => {
+                    transition.classList.add(
+                        "open"
+                    );
 
-                    window.location.href =
-                        destination;
 
-                }, 800);
-            }
-        );
-    });
+                    setTimeout(
+                        () => {
+
+                            window.location.href =
+                                destination;
+
+                        },
+                        800
+                    );
+
+                }
+            );
+
+        }
+    );
+
 }
 
 
@@ -482,30 +632,37 @@ document
     .querySelectorAll(
         'a[href="#home"]'
     )
-    .forEach(link => {
+    .forEach(
+        link => {
 
-        link.addEventListener(
-            "click",
-            event => {
+            link.addEventListener(
+                "click",
+                event => {
 
-                event.preventDefault();
-
-
-                const home =
-                    document.querySelector(
-                        "#home"
-                    );
+                    event.preventDefault();
 
 
-                if (home) {
+                    const home =
+                        document.querySelector(
+                            "#home"
+                        );
+
+
+                    if (!home) {
+                        return;
+                    }
+
 
                     home.scrollIntoView({
-                        behavior: "smooth"
+                        behavior:
+                            "smooth"
                     });
+
                 }
-            }
-        );
-    });
+            );
+
+        }
+    );
 
 
 /* =====================================================
@@ -516,13 +673,16 @@ window.addEventListener(
     "pageshow",
     () => {
 
-        if (!transition) return;
+        if (!transition) {
+            return;
+        }
 
 
         transition.classList.remove(
             "open",
             "close"
         );
+
     }
 );
 
@@ -534,53 +694,166 @@ window.addEventListener(
 let autoStep = 0;
 
 
-setInterval(() => {
+setInterval(
+    () => {
 
-    if (!cardsContainer) return;
+        if (!cardsContainer) {
+            return;
+        }
 
-    if (expanded) return;
+
+        if (expanded) {
+            return;
+        }
 
 
-    const cards =
-        cardsContainer.querySelectorAll(
-            ".manga-card"
+        const cards =
+            cardsContainer.querySelectorAll(
+                ".manga-card"
+            );
+
+
+        if (!cards.length) {
+            return;
+        }
+
+
+        autoStep =
+            (autoStep + 1) %
+            cards.length;
+
+
+        cards.forEach(
+            card => {
+
+                card.classList.remove(
+                    "focus-card"
+                );
+
+            }
         );
 
 
-    if (!cards.length) return;
+        const activeCard =
+            cards[autoStep];
 
 
-    autoStep =
-        (autoStep + 1) %
-        cards.length;
+        if (!activeCard) {
+            return;
+        }
 
 
-    cards.forEach(card => {
-
-        card.classList.remove(
+        activeCard.classList.add(
             "focus-card"
         );
-    });
 
 
-    const activeCard =
-        cards[autoStep];
+        setTimeout(
+            () => {
+
+                activeCard.classList.remove(
+                    "focus-card"
+                );
+
+            },
+            1200
+        );
 
 
-    if (!activeCard) return;
+    },
+    4000
+);
 
 
-    activeCard.classList.add(
-        "focus-card"
+/* =====================================================
+   MOBILE PERFORMANCE
+===================================================== */
+
+/*
+   Mobile devices don't have a mouse,
+   so don't calculate 3D movement.
+
+   Particles are already reduced above.
+
+   Also avoid unnecessary resize calculations.
+*/
+
+let lastWidth =
+    window.innerWidth;
+
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        const currentWidth =
+            window.innerWidth;
+
+
+        /*
+            Only useful for detecting
+            major layout changes.
+        */
+
+        if (
+            Math.abs(
+                currentWidth -
+                lastWidth
+            ) > 150
+        ) {
+
+            lastWidth =
+                currentWidth;
+
+        }
+
+    },
+    {
+        passive: true
+    }
+);
+
+
+/* =====================================================
+   VIDEO OPTIMIZATION
+===================================================== */
+
+/*
+   Don't force videos to load immediately.
+
+   HTML should ideally use:
+
+   <video controls preload="metadata">
+
+*/
+
+const videos =
+    document.querySelectorAll(
+        "video"
     );
 
 
-    setTimeout(() => {
+videos.forEach(
+    video => {
 
-        activeCard.classList.remove(
-            "focus-card"
-        );
+        /*
+            If autoplay is not explicitly required,
+            prevent unnecessary mobile loading.
+        */
 
-    }, 1200);
+        if (
+            window.innerWidth <= 768 &&
+            !video.hasAttribute(
+                "autoplay"
+            )
+        ) {
 
-}, 4000);
+            video.setAttribute(
+                "preload",
+                "metadata"
+            );
+
+        }
+
+    }
+);

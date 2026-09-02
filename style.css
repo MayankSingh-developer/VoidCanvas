@@ -1,7 +1,8 @@
-/* =====================================================
-   VOIDCANVAS — CREATIVE FREELANCE STUDIO
-   RED • ORANGE • YELLOW
-===================================================== */
+/* =========================================================
+   VOIDCANVAS — FINAL CLEAN CSS
+   Red / Orange / Yellow Edition
+   MOBILE OPTIMIZED
+========================================================= */
 
 * {
     margin: 0;
@@ -15,7 +16,7 @@ html {
 
 body {
     background: #030305;
-    color: #f5f5f5;
+    color: white;
     font-family: Arial, Helvetica, sans-serif;
     overflow-x: hidden;
 }
@@ -25,1488 +26,2670 @@ a {
     text-decoration: none;
 }
 
-button,
-a {
-    -webkit-tap-highlight-color: transparent;
-}
 
-/* =====================================================
-   GLOBAL
-===================================================== */
-
-::selection {
-    background: #ff6a00;
-    color: #fff;
-}
-
-section {
-    position: relative;
-}
-
-.section-label {
-    color: #ff9d00;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 4px;
-    margin-bottom: 18px;
-}
-
-/* =====================================================
+/* =========================================================
    NAVBAR
-===================================================== */
+========================================================= */
 
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 78px;
-    padding: 0 6%;
+    height: 72px;
+
+    padding: 0 4%;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     background: rgba(3, 3, 5, .72);
+
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255, 130, 0, .12);
-    z-index: 1000;
-    transition: background .3s ease;
+
+    border-bottom: 1px solid rgba(255,255,255,.09);
+
+    z-index: 5000;
 }
 
 .logo {
-    font-size: 22px;
+    font-size: 25px;
     font-weight: 900;
-    letter-spacing: -1px;
 }
 
-.logo span,
-footer span {
-    color: #ff7b00;
+.logo span {
+    background: linear-gradient(
+        90deg,
+        #ff3b30,
+        #ff9d00,
+        #ffe45c
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    background-size: 200% auto;
+
+    animation:
+        gradient
+        5s
+        ease-in-out
+        infinite;
 }
 
 .navbar nav {
     display: flex;
-    gap: 34px;
+    gap: 35px;
 }
 
 .navbar nav a {
-    position: relative;
     color: #aaa;
     font-size: 13px;
-    font-weight: 600;
-    transition: color .3s ease;
-}
-
-.navbar nav a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -7px;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #ff3b30, #ff9d00);
-    transition: width .3s ease;
+    transition: .3s;
 }
 
 .navbar nav a:hover {
-    color: #fff;
-}
+    color: white;
 
-.navbar nav a:hover::after {
-    width: 100%;
+    text-shadow:
+        0 0 15px #ff6b00;
 }
 
 .nav-button {
-    padding: 11px 19px;
-    border: 1px solid rgba(255, 150, 0, .45);
-    background: rgba(255, 100, 0, .08);
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    transition: .3s ease;
+    padding: 10px 19px;
+
+    border:
+        1px solid #ff6a00;
+
+    border-radius: 9px;
+
+    font-size: 12px;
+
+    box-shadow:
+        0 0 18px
+        rgba(255,70,0,.18);
+
+    transition: .3s;
 }
 
 .nav-button:hover {
-    background: linear-gradient(90deg, #ff3b30, #ff9d00);
-    color: #050505;
-    box-shadow: 0 0 25px rgba(255, 110, 0, .35);
+    background:
+        linear-gradient(
+            90deg,
+            #ff321f,
+            #ff9a00
+        );
+
+    transform:
+        translateY(-2px);
 }
 
-/* =====================================================
+
+/* =========================================================
    HERO
-===================================================== */
+========================================================= */
 
 .hero {
+    position: relative;
+
     min-height: 100vh;
-    padding: 120px 6% 70px;
+    height: 100vh;
+
+    padding:
+        100px 4% 45px;
+
     display: grid;
-    grid-template-columns: 48% 52%;
+
+    grid-template-columns:
+        43% 57%;
+
     align-items: center;
+
     overflow: hidden;
-    background:
-        radial-gradient(circle at 75% 50%, rgba(255, 80, 0, .10), transparent 30%),
-        radial-gradient(circle at 20% 80%, rgba(255, 170, 0, .06), transparent 30%),
-        #030305;
+
+    isolation: isolate;
 }
 
-/* background grid */
+
+/* Ambient glow */
 
 .hero::before {
     content: "";
+
     position: absolute;
-    inset: 0;
-    opacity: .18;
-    pointer-events: none;
-    background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-    background-size: 55px 55px;
-    mask-image: linear-gradient(to bottom, black, transparent);
-    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+
+    width: 650px;
+    height: 650px;
+
+    left: 25%;
+    top: 8%;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,50,20,.18),
+            rgba(255,130,0,.12) 35%,
+            transparent 70%
+        );
+
+    filter: blur(10px);
+
+    z-index: -2;
+
+    animation:
+        ambient
+        8s
+        ease-in-out
+        infinite
+        alternate;
 }
 
-/* orange glow */
+
+/* Grid */
 
 .hero::after {
     content: "";
+
     position: absolute;
-    width: 500px;
-    height: 500px;
-    right: -180px;
-    top: 20%;
-    border-radius: 50%;
-    background: rgba(255, 90, 0, .08);
-    filter: blur(100px);
+
+    inset: 0;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255,100,0,.025) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,100,0,.025) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        55px 55px;
+
+    z-index: -3;
+
+    animation:
+        grid
+        15s
+        linear
+        infinite;
+
     pointer-events: none;
 }
 
-/* =====================================================
-   HERO CONTENT
-===================================================== */
+
+@keyframes ambient {
+
+    to {
+
+        transform:
+            translate(160px,-35px)
+            scale(1.15);
+    }
+}
+
+
+@keyframes grid {
+
+    to {
+
+        background-position:
+            55px 55px;
+    }
+}
+
+
+/* =========================================================
+   HERO TEXT
+========================================================= */
 
 .hero-content {
     position: relative;
-    z-index: 5;
+
+    z-index: 20;
+
     max-width: 650px;
 }
 
-.eyebrow {
-    display: inline-block;
-    margin-bottom: 20px;
-    color: #ff9d00;
-    font-size: 11px;
-    font-weight: 800;
+.eyebrow,
+.section-label {
+
+    color: #ff8a00;
+
+    font-size: 10px;
+
     letter-spacing: 4px;
+
+    font-weight: bold;
+
+    margin-bottom: 18px;
 }
 
 .hero h1 {
+
     max-width: 680px;
-    font-size: clamp(48px, 6vw, 86px);
-    line-height: .94;
-    letter-spacing: -4px;
-    font-weight: 900;
-}
 
-.hero h1 span {
-    display: inline;
-    background: linear-gradient(
-        90deg,
-        #ff3b30,
-        #ff8500,
-        #ffe45c
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-.hero-description {
-    margin-top: 28px;
-    color: #ddd;
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 2px;
-}
-
-.hero-description b {
-    color: #ff6a00;
-    padding: 0 5px;
-}
-
-.hero-text {
-    max-width: 570px;
-    margin-top: 20px;
-    color: #8d8d94;
-    font-size: 15px;
-    line-height: 1.8;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 13px;
-    margin-top: 30px;
-}
-
-.primary-button,
-.secondary-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 48px;
-    padding: 0 23px;
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: 1.5px;
-    transition: .35s ease;
-}
-
-.primary-button {
-    color: #050505;
-    background: linear-gradient(
-        100deg,
-        #ff3b30,
-        #ff9d00,
-        #ffe45c
-    );
-    box-shadow: 0 0 25px rgba(255, 110, 0, .16);
-}
-
-.primary-button strong {
-    margin-left: 12px;
-    font-size: 17px;
-}
-
-.primary-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 40px rgba(255, 100, 0, .3);
-}
-
-.secondary-button {
-    border: 1px solid #333;
-    color: #ddd;
-    background: rgba(255,255,255,.02);
-}
-
-.secondary-button:hover {
-    border-color: #ff7b00;
-    color: #ff9d00;
-    transform: translateY(-3px);
-}
-
-/* =====================================================
-   SCROLL INDICATOR
-===================================================== */
-
-.scroll-indicator {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-top: 55px;
-}
-
-.scroll-indicator span {
-    color: #65656b;
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 3px;
-}
-
-.scroll-indicator i {
-    display: block;
-    width: 50px;
-    height: 1px;
-    position: relative;
-    overflow: hidden;
-    background: #333;
-}
-
-.scroll-indicator i::after {
-    content: "";
-    position: absolute;
-    left: -100%;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: #ff7b00;
-    animation: scrollLine 2s infinite ease-in-out;
-}
-
-@keyframes scrollLine {
-    0% {
-        left: -100%;
-    }
-
-    50% {
-        left: 0;
-    }
-
-    100% {
-        left: 100%;
-    }
-}
-
-/* =====================================================
-   HERO VISUAL
-===================================================== */
-
-.hero-visual {
-    min-width: 0;
-    height: 650px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    perspective: 1200px;
-    z-index: 2;
-}
-
-/* =====================================================
-   ENERGY FLOOR
-===================================================== */
-
-.energy-floor {
-    position: absolute;
-    width: 440px;
-    height: 110px;
-    left: 50%;
-    bottom: 78px;
-    transform: translateX(-50%) perspective(300px) rotateX(62deg);
-    border-radius: 50%;
-    border: 1px solid rgba(255, 130, 0, .55);
-    box-shadow:
-        0 0 15px rgba(255, 80, 0, .3),
-        inset 0 0 25px rgba(255, 100, 0, .12);
-    opacity: .85;
-    animation: energyPulse 3s ease-in-out infinite;
-}
-
-.energy-floor::before,
-.energy-floor::after {
-    content: "";
-    position: absolute;
-    inset: 15px;
-    border-radius: inherit;
-    border: 1px solid rgba(255, 170, 0, .28);
-}
-
-.energy-floor::after {
-    inset: 32px;
-    border-color: rgba(255, 220, 80, .22);
-}
-
-@keyframes energyPulse {
-    0%, 100% {
-        opacity: .45;
-        transform: translateX(-50%) perspective(300px) rotateX(62deg) scale(.95);
-    }
-
-    50% {
-        opacity: 1;
-        transform: translateX(-50%) perspective(300px) rotateX(62deg) scale(1.05);
-    }
-}
-
-/* =====================================================
-   CARDS CONTAINER
-===================================================== */
-
-.cards-container {
-    position: relative;
-    width: 430px;
-    height: 520px;
-    transform-style: preserve-3d;
-    transition: transform .5s ease;
-    z-index: 5;
-}
-
-/* =====================================================
-   MANGA CARDS
-===================================================== */
-
-.manga-card {
-    position: absolute;
-    width: 250px;
-    height: 390px;
-    top: 55px;
-    left: 50%;
-    overflow: hidden;
-    cursor: pointer;
-    border: 1px solid rgba(255, 130, 0, .5);
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.07),
-            rgba(20,20,22,.92) 50%,
-            rgba(255,70,0,.07)
+    font-size:
+        clamp(
+            42px,
+            4.6vw,
+            72px
         );
-    box-shadow:
-        0 25px 60px rgba(0,0,0,.55),
-        0 0 22px rgba(255, 90, 0, .10);
-    transform-style: preserve-3d;
-    transition:
-        transform .8s cubic-bezier(.2,.8,.2,1),
-        box-shadow .4s ease,
-        filter .4s ease;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-}
 
-/* manga texture */
+    line-height: 1.02;
 
-.manga-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    opacity: .25;
-    background:
-        repeating-linear-gradient(
-            110deg,
-            transparent 0,
-            transparent 7px,
-            rgba(255,255,255,.025) 8px,
-            transparent 9px
-        );
-    pointer-events: none;
-}
-
-/* moving shine */
-
-.manga-card::after {
-    content: "";
-    position: absolute;
-    top: -30%;
-    left: -80%;
-    width: 50%;
-    height: 170%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 220, 100, .15),
-        transparent
-    );
-    transform: rotate(18deg);
-    animation: cardShine 4.5s infinite ease-in-out;
-    pointer-events: none;
-}
-
-@keyframes cardShine {
-    0%, 55% {
-        left: -80%;
-    }
-
-    75%, 100% {
-        left: 150%;
-    }
-}
-
-/* =====================================================
-   CARD POSITIONS
-===================================================== */
-
-.card-1 {
-    transform:
-        translateX(-50%)
-        rotate(-8deg)
-        translateZ(30px);
-    z-index: 3;
-}
-
-.card-2 {
-    transform:
-        translateX(-50%)
-        rotate(0deg)
-        translateZ(80px);
-    z-index: 5;
-}
-
-.card-3 {
-    transform:
-        translateX(-50%)
-        rotate(8deg)
-        translateZ(30px);
-    z-index: 3;
-}
-
-.manga-card:hover {
-    border-color: #ff9d00;
-    box-shadow:
-        0 30px 70px rgba(0,0,0,.65),
-        0 0 35px rgba(255, 100, 0, .28);
-}
-
-/* =====================================================
-   CARD TEXT
-===================================================== */
-
-.card-small {
-    position: absolute;
-    top: 18px;
-    left: 18px;
-    color: #ff9d00;
-    font-size: 8px;
-    font-weight: 900;
-    letter-spacing: 3px;
-}
-
-.card-number {
-    position: absolute;
-    top: 15px;
-    right: 17px;
-    color: rgba(255,255,255,.35);
-    font-size: 12px;
-    font-weight: 900;
-}
-
-.card-word {
-    position: absolute;
-    left: 22px;
-    bottom: 70px;
-    font-size: 43px;
-    font-weight: 900;
-    letter-spacing: -2px;
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    color: #fff;
-    text-shadow:
-        0 0 20px rgba(255, 90, 0, .25);
-}
-
-.card-1 .card-word {
-    color: #ff6a00;
-}
-
-.card-2 .card-word {
-    color: #ffe45c;
-}
-
-.card-3 .card-word {
-    color: #ff3b30;
-}
-
-/* =====================================================
-   CARD LINES
-===================================================== */
-
-.card-lines {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: .7;
-    background:
-        repeating-linear-gradient(
-            90deg,
-            transparent 0,
-            transparent 30px,
-            rgba(255, 120, 0, .08) 31px,
-            transparent 32px
-        );
-    animation: linesMove 5s linear infinite;
-}
-
-@keyframes linesMove {
-    from {
-        background-position: 0 0;
-    }
-
-    to {
-        background-position: 100px 0;
-    }
-}
-
-/* =====================================================
-   CRACKS
-===================================================== */
-
-.cracks {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: .55;
-}
-
-.cracks::before,
-.cracks::after {
-    content: "";
-    position: absolute;
-    width: 160px;
-    height: 1px;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        #ff8c00,
-        transparent
-    );
-    transform: rotate(-55deg);
-}
-
-.cracks::before {
-    top: 100px;
-    right: -35px;
-    box-shadow:
-        20px 30px 0 rgba(255,130,0,.4),
-        -20px 65px 0 rgba(255,130,0,.25);
-}
-
-.cracks::after {
-    bottom: 100px;
-    left: -50px;
-    transform: rotate(35deg);
-}
-
-/* =====================================================
-   CARD CIRCLE
-===================================================== */
-
-.card-circle {
-    position: absolute;
-    right: 18px;
-    bottom: 18px;
-    width: 82px;
-    height: 82px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border: 1px solid rgba(255,150,0,.55);
-    background: rgba(5,5,7,.7);
-    box-shadow: 0 0 25px rgba(255,100,0,.12);
-    animation: circleRotate 10s linear infinite;
-}
-
-.card-circle span {
-    color: #ffe45c;
-    font-size: 18px;
-    font-weight: 900;
-}
-
-.card-circle small {
-    margin-top: 3px;
-    color: #888;
-    font-size: 7px;
-    font-weight: 900;
-    letter-spacing: 2px;
-}
-
-@keyframes circleRotate {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* =====================================================
-   EXPANDED CARDS
-===================================================== */
-
-.cards-container.expanded .card-1 {
-    transform:
-        translateX(-150%)
-        rotate(-14deg)
-        translateZ(70px);
-}
-
-.cards-container.expanded .card-2 {
-    transform:
-        translateX(-50%)
-        rotate(0)
-        translateZ(160px)
-        scale(1.05);
-}
-
-.cards-container.expanded .card-3 {
-    transform:
-        translateX(50%)
-        rotate(14deg)
-        translateZ(70px);
-}
-
-.cards-container.expanded .manga-card {
-    box-shadow:
-        0 30px 80px rgba(0,0,0,.7),
-        0 0 35px rgba(255,100,0,.22);
-}
-
-/* =====================================================
-   AUTO FOCUS
-===================================================== */
-
-.focus-card {
-    animation: cardFocus 1.2s ease;
-}
-
-@keyframes cardFocus {
-    0%, 100% {
-        filter: brightness(1);
-    }
-
-    50% {
-        filter: brightness(1.45);
-        box-shadow:
-            0 0 50px rgba(255,120,0,.35);
-    }
-}
-
-.expand-hint {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #555;
-    font-size: 8px;
-    letter-spacing: 3px;
-    white-space: nowrap;
-    z-index: 10;
-    animation: hintPulse 2.5s ease-in-out infinite;
-}
-
-@keyframes hintPulse {
-    0%, 100% {
-        opacity: .35;
-    }
-
-    50% {
-        opacity: 1;
-    }
-}
-
-/* =====================================================
-   SERVICES
-===================================================== */
-
-.services {
-    min-height: 90vh;
-    padding: 120px 7%;
-    background:
-        linear-gradient(
-            180deg,
-            #030305,
-            #070606
-        );
-}
-
-.section-heading {
-    max-width: 700px;
-    margin-bottom: 60px;
-}
-
-.section-heading h2 {
-    font-size: clamp(38px, 5vw, 64px);
-    line-height: 1;
     letter-spacing: -3px;
 }
 
-.section-heading h2 span {
-    color: #ff7b00;
+.hero h1 span,
+h2 span {
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff3b30,
+            #ff9d00,
+            #ffe45c
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+    background-size: 200% auto;
+
+    animation:
+        gradient
+        5s
+        ease-in-out
+        infinite;
 }
 
-.section-heading p {
-    margin-top: 20px;
-    color: #777;
-    line-height: 1.7;
-}
 
-.service-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
+.hero-description {
 
-.service-card {
-    position: relative;
-    min-height: 330px;
-    padding: 30px;
-    overflow: hidden;
-    border: 1px solid #222;
-    background: linear-gradient(
-        145deg,
-        rgba(255,255,255,.035),
-        rgba(255,70,0,.025)
-    );
-    transition: .45s ease;
-}
+    margin-top: 22px;
 
-.service-card::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 3px;
-    height: 0;
-    background: linear-gradient(
-        #ff3b30,
-        #ff9d00,
-        #ffe45c
-    );
-    transition: height .45s ease;
-}
-
-.service-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(255,130,0,.5);
-    box-shadow: 0 20px 60px rgba(0,0,0,.4);
-}
-
-.service-card:hover::before {
-    height: 100%;
-}
-
-.service-number {
-    position: absolute;
-    right: 25px;
-    top: 20px;
-    color: #444;
     font-size: 12px;
-    font-weight: 900;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
 }
 
-.service-icon {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 50px;
-    border: 1px solid rgba(255,130,0,.4);
-    color: #ff9d00;
-    font-size: 20px;
+.hero-description b {
+
+    color: #ff7b00;
+
+    padding:
+        0 5px;
 }
 
-.service-card h3 {
-    font-size: 25px;
-    margin-bottom: 15px;
-}
 
-.service-card p {
-    color: #777;
-    line-height: 1.7;
+.hero-text {
+
+    max-width: 560px;
+
+    margin-top: 16px;
+
+    color: #8d8d96;
+
     font-size: 14px;
+
+    line-height: 1.7;
 }
 
-.service-link {
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.hero-buttons {
+
+    display: flex;
+
+    gap: 14px;
+
+    margin-top: 25px;
+}
+
+
+.primary-button,
+.secondary-button {
+
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding:
+        13px 22px;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    transition: .35s;
+
+    overflow: hidden;
+}
+
+
+.primary-button {
+
+    background:
+        linear-gradient(
+            110deg,
+            #ff3020,
+            #ff7200,
+            #ffd13b
+        );
+
+    background-size:
+        200% 200%;
+
+    animation:
+        gradient
+        5s
+        ease
+        infinite;
+
+    box-shadow:
+        0 0 30px
+        rgba(255,75,0,.24);
+}
+
+
+.secondary-button {
+
+    border:
+        1px solid
+        rgba(255,130,30,.35);
+
+    background:
+        rgba(255,255,255,.02);
+}
+
+
+.primary-button:hover,
+.secondary-button:hover {
+
+    transform:
+        translateY(-4px)
+        scale(1.03);
+}
+
+
+@keyframes gradient {
+
+    0%,
+    100% {
+
+        background-position:
+            0% 50%;
+    }
+
+    50% {
+
+        background-position:
+            100% 50%;
+    }
+}
+
+
+/* =========================================================
+   SCROLL INDICATOR
+========================================================= */
+
+.scroll-indicator {
+
     position: absolute;
-    left: 30px;
-    bottom: 25px;
-    color: #ff9d00;
-    font-size: 10px;
+
+    left: 0;
+
+    bottom: -3px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: #a65d00;
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+}
+
+
+.scroll-indicator i {
+
+    display: block;
+
+    width: 2px;
+
+    height: 35px;
+
+    background:
+        linear-gradient(
+            #ff3b20,
+            #ffd33d
+        );
+
+    box-shadow:
+        0 0 10px
+        #ff6a00;
+
+    animation:
+        scroll
+        1.7s
+        infinite;
+}
+
+
+@keyframes scroll {
+
+    from {
+
+        transform:
+            translateY(-12px);
+
+        opacity: .2;
+    }
+
+    to {
+
+        transform:
+            translateY(10px);
+
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   HERO VISUAL
+========================================================= */
+
+.hero-visual {
+
+    position: relative;
+
+    height: 100%;
+
+    min-height: 520px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    perspective: 1400px;
+}
+
+
+/* =========================================================
+   CARDS CONTAINER
+========================================================= */
+
+.cards-container {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 500px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    perspective: 1400px;
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   MAIN CARDS
+========================================================= */
+
+.manga-card {
+
+    position: absolute;
+
+    width: 235px;
+
+    height: 365px;
+
+    overflow: hidden;
+
+    border:
+        1px solid #ff542f;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #19100e,
+            #08090d 60%,
+            #120b06
+        );
+
+    box-shadow:
+        0 0 35px
+        rgba(255,65,20,.20);
+
+    cursor: pointer;
+
+    transform-style:
+        preserve-3d;
+
+    transition:
+        transform .85s
+        cubic-bezier(.16,1,.3,1),
+
+        box-shadow .5s;
+
+    animation:
+        float
+        5s
+        ease-in-out
+        infinite;
+}
+
+
+/* =========================================================
+   CARD POSITIONS
+========================================================= */
+
+.card-1 {
+
+    transform:
+        translateX(-145px)
+        rotate(-8deg);
+
+    z-index: 3;
+
+    border-color:
+        #ff3b30;
+}
+
+
+.card-2 {
+
+    transform:
+        translateY(-20px)
+        rotate(0deg);
+
+    z-index: 4;
+
+    border-color:
+        #ff8a00;
+
+    animation-delay:
+        -1.5s;
+}
+
+
+.card-3 {
+
+    transform:
+        translateX(145px)
+        rotate(8deg);
+
+    z-index: 3;
+
+    border-color:
+        #ffd23b;
+
+    animation-delay:
+        -3s;
+}
+
+
+@keyframes float {
+
+    0%,
+    100% {
+
+        margin-top: 0;
+    }
+
+    50% {
+
+        margin-top: -15px;
+    }
+}
+
+
+/* =========================================================
+   CARD BACKGROUND
+========================================================= */
+
+.manga-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            rgba(255,80,20,.2),
+            transparent 55%
+        );
+
+    z-index: 0;
+}
+
+
+.card-lines {
+
+    position: absolute;
+
+    inset: -50%;
+
+    background:
+        repeating-linear-gradient(
+            115deg,
+            transparent 0,
+            transparent 17px,
+            rgba(255,110,30,.07) 18px,
+            rgba(255,220,80,.03) 20px,
+            transparent 21px
+        );
+
+    animation:
+        lines
+        8s
+        linear
+        infinite;
+}
+
+
+@keyframes lines {
+
+    to {
+
+        transform:
+            translate(130px,-90px);
+    }
+}
+
+
+/* =========================================================
+   CARD CRACK
+========================================================= */
+
+.cracks {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 2;
+
+    opacity: .55;
+
+    background:
+
+        linear-gradient(
+            125deg,
+            transparent 48%,
+            rgba(255,255,255,.7) 49%,
+            transparent 50%
+        ),
+
+        linear-gradient(
+            70deg,
+            transparent 63%,
+            rgba(255,255,255,.45) 64%,
+            transparent 65%
+        );
+
+    mask-image:
+        linear-gradient(
+            to bottom right,
+            transparent 0 5%,
+            #000 10% 18%,
+            transparent 25% 100%
+        );
+
+    -webkit-mask-image:
+        linear-gradient(
+            to bottom right,
+            transparent 0 5%,
+            #000 10% 18%,
+            transparent 25% 100%
+        );
+
+    animation:
+        crackPulse
+        3s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes crackPulse {
+
+    50% {
+
+        opacity: .9;
+    }
+}
+
+
+/* =========================================================
+   CARD TEXT
+========================================================= */
+
+.card-small {
+
+    position: absolute;
+
+    top: 24px;
+
+    left: 24px;
+
+    color: white;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    font-weight: bold;
+
+    z-index: 3;
+}
+
+
+.card-number {
+
+    position: absolute;
+
+    top: 22px;
+
+    right: 23px;
+
+    color: #ff9a00;
+
+    font-size: 26px;
+
     font-weight: 900;
+
+    z-index: 3;
+}
+
+
+.card-word {
+
+    position: absolute;
+
+    left: 20px;
+
+    right: 20px;
+
+    bottom: 115px;
+
+    text-align: center;
+
+    color: white;
+
+    font-size: 39px;
+
+    font-weight: 900;
+
+    letter-spacing: -2px;
+
+    z-index: 3;
+
+    transform:
+        translateZ(45px);
+
+    text-shadow:
+        0 0 18px
+        rgba(255,120,30,.3);
+}
+
+
+/* =========================================================
+   CARD CIRCLE
+========================================================= */
+
+.card-circle {
+
+    position: absolute;
+
+    bottom: 28px;
+
+    left: 50%;
+
+    width: 75px;
+
+    height: 75px;
+
+    transform:
+        translateX(-50%)
+        translateZ(55px);
+
+    border:
+        1px solid #ff9c35;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 4;
+
+    box-shadow:
+        0 0 25px
+        rgba(255,100,0,.2);
+
+    animation:
+        rotate
+        10s
+        linear
+        infinite;
+}
+
+
+.card-circle span {
+
+    color: #ffd33d;
+
+    font-size: 22px;
+}
+
+
+.card-circle small {
+
+    color: #ff8a00;
+
+    margin-top: 4px;
+
+    font-size: 8px;
+
     letter-spacing: 2px;
 }
 
-/* =====================================================
-   CONTACT
-===================================================== */
 
-.contact {
-    min-height: 70vh;
-    padding: 130px 7%;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+@keyframes rotate {
+
+    to {
+
+        transform:
+            translateX(-50%)
+            translateZ(55px)
+            rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   CARD SHINE
+========================================================= */
+
+.manga-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 180%;
+
+    height: 30px;
+
+    left: -180%;
+
+    top: 45%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.2),
+            transparent
+        );
+
+    transform:
+        rotate(-45deg);
+
+    animation:
+        shine
+        5s
+        infinite;
+
+    z-index: 6;
+}
+
+
+@keyframes shine {
+
+    0%,
+    45% {
+
+        left: -180%;
+    }
+
+    70%,
+    100% {
+
+        left: 170%;
+    }
+}
+
+
+/* =========================================================
+   ENERGY FLOOR
+========================================================= */
+
+.energy-floor {
+
+    position: absolute;
+
+    width: 570px;
+
+    height: 190px;
+
+    bottom: 5%;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    border-radius: 50%;
+
     background:
         radial-gradient(
-            circle at center,
-            rgba(255,90,0,.08),
-            transparent 40%
-        ),
-        #030305;
+            ellipse at center,
+            rgba(255,100,0,.35),
+            rgba(255,55,20,.12) 30%,
+            transparent 70%
+        );
+
+    filter: blur(3px);
+
+    z-index: 1;
 }
 
-.contact h2 {
-    font-size: clamp(45px, 6vw, 78px);
-    line-height: .95;
-    letter-spacing: -4px;
-}
 
-.contact h2 span {
-    background: linear-gradient(
-        90deg,
-        #ff3b30,
-        #ff9d00,
-        #ffe45c
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
+.energy-floor::before,
+.energy-floor::after {
 
-.contact p {
-    max-width: 550px;
-    margin: 25px auto 35px;
-    color: #777;
-    line-height: 1.8;
-}
-
-.contact .primary-button {
-    margin-top: 5px;
-}
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-footer {
-    padding: 25px 7%;
-    text-align: center;
-    color: #555;
-    font-size: 11px;
-    border-top: 1px solid #161616;
-    background: #020203;
-}
-
-/* =====================================================
-   LETTER ANIMATION
-===================================================== */
-
-.word {
-    display: inline-block;
-    white-space: nowrap;
-}
-
-.letter {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(18px);
-    filter: blur(5px);
-    transition:
-        opacity .45s ease,
-        transform .45s ease,
-        filter .45s ease;
-}
-
-.letter.show {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-}
-
-/* =====================================================
-   PAGE TRANSITION
-===================================================== */
-
-.page-transition {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #030305;
-    pointer-events: none;
-    opacity: 0;
-    visibility: hidden;
-}
-
-.page-transition.open {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: all;
-    animation: transitionIn .8s ease forwards;
-}
-
-.page-transition.close {
-    animation: transitionOut .8s ease forwards;
-}
-
-@keyframes transitionIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes transitionOut {
-    from {
-        opacity: 1;
-    }
-
-    to {
-        opacity: 0;
-    }
-}
-
-.transition-ring {
-    position: absolute;
-    width: 260px;
-    height: 260px;
-    border-radius: 50%;
-    border: 1px solid rgba(255,120,0,.4);
-    box-shadow:
-        0 0 30px rgba(255,80,0,.2),
-        inset 0 0 30px rgba(255,120,0,.08);
-    animation: transitionRing 2s linear infinite;
-}
-
-.transition-ring::before,
-.transition-ring::after {
     content: "";
+
     position: absolute;
-    inset: 25px;
+
+    inset:
+        30px 0;
+
+    border:
+        1px solid
+        rgba(255,100,0,.35);
+
     border-radius: 50%;
-    border: 1px solid rgba(255,170,0,.25);
+
+    animation:
+        floorPulse
+        4s
+        ease-in-out
+        infinite;
 }
 
-.transition-ring::after {
-    inset: 55px;
-    border-color: rgba(255,220,80,.2);
+
+.energy-floor::after {
+
+    inset:
+        55px 80px;
+
+    animation-delay:
+        -1s;
 }
 
-@keyframes transitionRing {
-    from {
-        transform: rotate(0deg) scale(.8);
-    }
+
+@keyframes floorPulse {
 
     50% {
-        transform: rotate(180deg) scale(1);
+
+        transform:
+            scale(1.12);
+
+        opacity: .4;
+    }
+}
+
+
+/* =========================================================
+   EXPANDED CARDS
+========================================================= */
+
+.cards-container.expanded .manga-card {
+
+    animation: none;
+}
+
+
+.cards-container.expanded .card-1 {
+
+    transform:
+        translateX(-250px)
+        translateY(5px)
+        rotate(-7deg)
+        scale(.93);
+
+    z-index: 3;
+}
+
+
+.cards-container.expanded .card-2 {
+
+    transform:
+        translateY(-20px)
+        rotate(0deg)
+        scale(1.02);
+
+    z-index: 6;
+}
+
+
+.cards-container.expanded .card-3 {
+
+    transform:
+        translateX(250px)
+        translateY(5px)
+        rotate(7deg)
+        scale(.93);
+
+    z-index: 3;
+}
+
+
+.cards-container.expanded .manga-card:hover {
+
+    box-shadow:
+        0 0 70px
+        rgba(255,110,20,.5);
+}
+
+
+.expand-hint {
+
+    position: absolute;
+
+    right: 8%;
+
+    bottom: 7%;
+
+    color: #754000;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+
+    z-index: 10;
+}
+
+
+/* =========================================================
+   SERVICES
+========================================================= */
+
+.services {
+
+    padding:
+        85px 4%;
+
+    background:
+        #060608;
+
+    border-top:
+        1px solid #18120f;
+}
+
+
+.section-heading {
+
+    max-width: 700px;
+
+    margin-bottom: 35px;
+}
+
+
+.section-heading h2 {
+
+    font-size:
+        clamp(
+            32px,
+            4vw,
+            52px
+        );
+}
+
+
+.section-heading p {
+
+    color: #777;
+
+    margin-top: 12px;
+
+    font-size: 13px;
+}
+
+
+.service-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 18px;
+}
+
+
+.service-card {
+
+    position: relative;
+
+    min-height: 270px;
+
+    padding: 28px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-end;
+
+    overflow: hidden;
+
+    border:
+        1px solid #302015;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #120e0c,
+            #070709
+        );
+
+    transition:
+        transform .45s ease,
+        border-color .45s ease,
+        box-shadow .45s ease;
+}
+
+
+.service-card:hover {
+
+    transform:
+        translateY(-9px);
+
+    border-color:
+        #ff7b00;
+
+    box-shadow:
+        0 20px 50px
+        rgba(255,80,0,.12);
+}
+
+
+.service-number {
+
+    position: absolute;
+
+    right: 25px;
+
+    top: 22px;
+
+    color: #ff8a00;
+
+    font-weight: bold;
+}
+
+
+.service-icon {
+
+    position: absolute;
+
+    top: 25px;
+
+    left: 25px;
+
+    width: 48px;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border:
+        1px solid #ff6828;
+
+    border-radius: 12px;
+
+    color: #ffb52e;
+
+    font-size: 19px;
+
+    box-shadow:
+        0 0 20px
+        rgba(255,80,0,.12);
+}
+
+
+.service-card h3 {
+
+    font-size: 21px;
+
+    margin-bottom: 10px;
+}
+
+
+.service-card p {
+
+    color: #777;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+    margin-bottom: 18px;
+}
+
+
+.service-link {
+
+    color: #ff9a00;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   ABOUT + CONTACT
+========================================================= */
+
+.about-contact {
+
+    display: grid;
+
+    grid-template-columns:
+        1.1fr .9fr;
+
+    border-top:
+        1px solid #18120f;
+}
+
+
+.about,
+.contact {
+
+    padding:
+        75px 4%;
+}
+
+
+.contact {
+
+    border-left:
+        1px solid #18120f;
+
+    background:
+        radial-gradient(
+            circle at 70% 35%,
+            rgba(255,70,0,.09),
+            transparent 45%
+        );
+}
+
+
+.about h2,
+.contact h2 {
+
+    font-size:
+        clamp(
+            34px,
+            4vw,
+            54px
+        );
+
+    line-height: 1.05;
+}
+
+
+.about p,
+.contact p {
+
+    max-width: 600px;
+
+    color: #777;
+
+    line-height: 1.7;
+
+    font-size: 13px;
+
+    margin-top: 15px;
+}
+
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 10px;
+
+    margin-top: 35px;
+}
+
+
+.stats div {
+
+    padding:
+        18px 8px;
+
+    text-align: center;
+
+    border:
+        1px solid #29201a;
+
+    border-radius: 10px;
+}
+
+
+.stats strong {
+
+    display: block;
+
+    color: #ff9d20;
+
+    font-size: 22px;
+}
+
+
+.stats small {
+
+    color: #777;
+
+    font-size: 9px;
+}
+
+
+.contact .primary-button {
+
+    margin-top: 24px;
+}
+
+
+/* =========================================================
+   ARTWORK GALLERY
+========================================================= */
+
+.artwork-section {
+
+    padding:
+        90px 4%;
+
+    background:
+        #060608;
+
+    border-top:
+        1px solid #18120f;
+}
+
+
+.artwork-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 22px;
+}
+
+
+.artwork-card {
+
+    position: relative;
+
+    min-height: 400px;
+
+    overflow: hidden;
+
+    border:
+        1px solid #302015;
+
+    border-radius: 18px;
+
+    background:
+        #0b0908;
+
+    transition:
+        transform .45s ease,
+        box-shadow .45s ease,
+        border-color .45s ease;
+}
+
+
+.artwork-card:hover {
+
+    transform:
+        translateY(-8px);
+
+    border-color:
+        #ff7b00;
+
+    box-shadow:
+        0 20px 50px
+        rgba(255,80,0,.18);
+}
+
+
+.artwork-card img {
+
+    display: block;
+
+    width: 100%;
+
+    height: 430px;
+
+    object-fit: cover;
+
+    transition:
+        transform .6s ease;
+}
+
+
+.artwork-card:hover img {
+
+    transform:
+        scale(1.05);
+}
+
+
+.artwork-info {
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    bottom: 0;
+
+    padding:
+        80px 25px 25px;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(3,3,5,.95)
+        );
+}
+
+
+.artwork-info span {
+
+    color: #ff8a00;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+}
+
+
+.artwork-info h3 {
+
+    margin-top: 6px;
+
+    font-size: 22px;
+}
+
+
+.artwork-info p {
+
+    margin-top: 5px;
+
+    color: #888;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   PAGE TRANSITION
+========================================================= */
+
+.page-transition {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 99999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle,
+            #301407,
+            #0e0805 50%,
+            #030305 75%
+        );
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    clip-path:
+        circle(
+            0 at 50% 50%
+        );
+}
+
+
+.page-transition.open {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: all;
+
+    animation:
+        pageOpen
+        .8s
+        forwards;
+}
+
+
+.page-transition.close {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: all;
+
+    animation:
+        pageClose
+        1.3s
+        forwards;
+}
+
+
+@keyframes pageOpen {
+
+    to {
+
+        clip-path:
+            circle(
+                150% at 50% 50%
+            );
+    }
+}
+
+
+@keyframes pageClose {
+
+    from {
+
+        clip-path:
+            circle(
+                150% at 50% 50%
+            );
     }
 
     to {
-        transform: rotate(360deg) scale(.8);
+
+        clip-path:
+            circle(
+                0 at 50% 50%
+            );
     }
 }
 
-.transition-center {
-    position: relative;
-    text-align: center;
-    z-index: 2;
+
+/* =========================================================
+   TRANSITION RING
+========================================================= */
+
+.transition-ring {
+
+    width: 230px;
+
+    height: 230px;
+
+    border:
+        1px solid #ff7920;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 55px
+        rgba(255,80,0,.35);
+
+    animation:
+        spin
+        1.5s
+        linear
+        infinite;
 }
 
+
+.transition-center {
+
+    position: absolute;
+
+    text-align: center;
+}
+
+
 .transition-logo {
-    font-size: 28px;
+
+    font-size: 29px;
+
     font-weight: 900;
 }
 
+
 .transition-logo span {
-    color: #ff7b00;
+
+    color: #ff9d22;
 }
 
+
 .transition-message {
-    margin-top: 14px;
+
+    margin-top: 12px;
+
     color: #777;
+
     font-size: 8px;
+
     letter-spacing: 4px;
 }
 
+
 .transition-dots {
+
     display: flex;
+
     justify-content: center;
-    gap: 5px;
-    margin-top: 18px;
+
+    gap: 7px;
+
+    margin-top: 20px;
 }
+
 
 .transition-dots i {
+
     width: 5px;
+
     height: 5px;
+
     border-radius: 50%;
-    background: #ff7b00;
-    animation: dotPulse 1s infinite;
+
+    background:
+        #ff542f;
+
+    animation:
+        pulse
+        1s
+        infinite;
 }
+
 
 .transition-dots i:nth-child(2) {
-    animation-delay: .15s;
+
+    background:
+        #ff9d00;
+
+    animation-delay:
+        .15s;
 }
+
 
 .transition-dots i:nth-child(3) {
-    animation-delay: .3s;
+
+    background:
+        #ffe45c;
+
+    animation-delay:
+        .3s;
 }
 
-@keyframes dotPulse {
-    0%, 100% {
-        opacity: .25;
-        transform: scale(.7);
+
+@keyframes spin {
+
+    to {
+
+        transform:
+            rotate(360deg)
+            scale(1.15);
+    }
+}
+
+
+@keyframes pulse {
+
+    0%,
+    100% {
+
+        opacity: .2;
     }
 
     50% {
+
+        transform:
+            scale(1.5);
+
         opacity: 1;
-        transform: scale(1.3);
     }
 }
 
-/* =====================================================
+
+/* =========================================================
+   LETTER ANIMATION
+========================================================= */
+
+.word {
+
+    display: inline-block;
+
+    white-space: nowrap;
+}
+
+
+.letter {
+
+    display: inline-block;
+
+    opacity: 0;
+
+    transform:
+        translateY(24px)
+        rotateX(65deg);
+
+    filter:
+        blur(6px);
+
+    transition:
+        opacity .3s ease,
+        transform .55s cubic-bezier(.16,1,.3,1),
+        filter .45s ease;
+}
+
+
+.letter.show {
+
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        rotateX(0);
+
+    filter:
+        blur(0);
+}
+
+
+/* =========================================================
+   FOCUS CARD
+========================================================= */
+
+.focus-card {
+
+    box-shadow:
+        0 0 75px
+        rgba(255,100,20,.52)
+        !important;
+}
+
+
+/* =========================================================
+   SELECTED WORK — 2 VIDEOS
+========================================================= */
+
+.work-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 22px;
+}
+
+
+.work-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    border:
+        1px solid #29222f;
+
+    border-radius: 18px;
+
+    background:
+        #0b0a0e;
+
+    transition:
+        transform .45s ease,
+        border-color .45s ease,
+        box-shadow .45s ease;
+
+    contain:
+        layout paint;
+}
+
+
+.work-card:hover {
+
+    transform:
+        translateY(-8px);
+
+    border-color:
+        #9b5cff;
+
+    box-shadow:
+        0 20px 60px
+        rgba(155,92,255,.15);
+}
+
+
+.work-card video {
+
+    width: 100%;
+
+    height: 420px;
+
+    display: block;
+
+    object-fit: cover;
+
+    background:
+        #050507;
+}
+
+
+.work-number {
+
+    position: absolute;
+
+    top: 16px;
+
+    right: 16px;
+
+    z-index: 5;
+
+    padding:
+        7px 10px;
+
+    border:
+        1px solid
+        rgba(155,92,255,.5);
+
+    border-radius: 7px;
+
+    background:
+        rgba(5,5,8,.75);
+
+    color:
+        #9b5cff;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+}
+
+
+.work-info {
+
+    padding:
+        22px;
+}
+
+
+.work-info span {
+
+    color:
+        #9b5cff;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    font-weight: bold;
+}
+
+
+.work-info h3 {
+
+    margin-top:
+        10px;
+
+    font-size:
+        21px;
+}
+
+
+.work-info p {
+
+    margin-top:
+        9px;
+
+    color:
+        #777;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.7;
+}
+
+
+/* =========================================================
    TABLET
-===================================================== */
+========================================================= */
 
 @media (max-width: 1000px) {
 
     .hero {
-        grid-template-columns: 1fr;
-        padding-top: 130px;
+
+        grid-template-columns:
+            1fr;
+
+        height:
+            auto;
+
+        min-height:
+            100vh;
+
+        padding-top:
+            105px;
     }
+
 
     .hero-content {
-        max-width: 800px;
+
+        text-align:
+            center;
+
+        margin:
+            auto;
     }
 
-    .hero-visual {
-        height: 580px;
-        margin-top: 20px;
-    }
-
-    .service-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 768px) {
-
-    body {
-        overflow-x: hidden;
-    }
-
-    .navbar {
-        height: 65px;
-        padding: 0 5%;
-    }
-
-    .logo {
-        font-size: 19px;
-    }
-
-    .navbar nav {
-        display: none;
-    }
-
-    .nav-button {
-        padding: 9px 13px;
-        font-size: 9px;
-    }
-
-    .hero {
-        min-height: auto;
-        padding:
-            105px 5% 35px;
-        display: block;
-    }
-
-    .hero-content {
-        max-width: 100%;
-    }
-
-    .eyebrow {
-        font-size: 8px;
-        letter-spacing: 2.5px;
-        margin-bottom: 16px;
-    }
-
-    .hero h1 {
-        font-size: clamp(40px, 12vw, 58px);
-        letter-spacing: -2.5px;
-        line-height: .95;
-    }
-
-    .hero-description {
-        margin-top: 22px;
-        font-size: 9px;
-        line-height: 1.8;
-        letter-spacing: 1px;
-    }
-
-    .hero-description b {
-        padding: 0 2px;
-    }
 
     .hero-text {
-        margin-top: 14px;
-        font-size: 13px;
-        line-height: 1.7;
+
+        margin-left:
+            auto;
+
+        margin-right:
+            auto;
     }
+
 
     .hero-buttons {
-        margin-top: 22px;
-        gap: 9px;
+
+        justify-content:
+            center;
     }
 
-    .primary-button,
-    .secondary-button {
-        min-height: 43px;
-        padding: 0 15px;
-        font-size: 9px;
-    }
 
     .scroll-indicator {
-        margin-top: 28px;
+
+        left:
+            50%;
+
+        transform:
+            translateX(-50%);
     }
 
-    .scroll-indicator span {
-        font-size: 7px;
-        letter-spacing: 2px;
-    }
-
-    .scroll-indicator i {
-        width: 35px;
-    }
-
-    /* -------------------------
-       MOBILE CARDS
-    ------------------------- */
 
     .hero-visual {
-        width: 100%;
-        height: 470px;
-        margin-top: 15px;
-        perspective: 900px;
+
+        height:
+            470px;
+
+        min-height:
+            470px;
     }
 
-    .cards-container {
-        width: 330px;
-        height: 400px;
-    }
 
     .manga-card {
-        width: 185px;
-        height: 295px;
-        top: 45px;
-        box-shadow:
-            0 12px 30px rgba(0,0,0,.55),
-            0 0 12px rgba(255,90,0,.10);
+
+        width:
+            205px;
+
+        height:
+            320px;
     }
 
-    .card-small {
-        top: 13px;
-        left: 13px;
-        font-size: 6px;
-        letter-spacing: 2px;
-    }
 
-    .card-number {
-        top: 12px;
-        right: 12px;
-        font-size: 9px;
-    }
+    .card-1 {
 
-    .card-word {
-        left: 15px;
-        bottom: 50px;
-        font-size: 30px;
-    }
-
-    .card-circle {
-        width: 58px;
-        height: 58px;
-        right: 12px;
-        bottom: 12px;
-    }
-
-    .card-circle span {
-        font-size: 13px;
-    }
-
-    .card-circle small {
-        font-size: 5px;
-    }
-
-    .energy-floor {
-        width: 300px;
-        height: 70px;
-        bottom: 55px;
-    }
-
-    .expand-hint {
-        bottom: 7px;
-        font-size: 6px;
-        letter-spacing: 2px;
-    }
-
-    /* Keep expansion inside screen */
-
-    .cards-container.expanded .card-1 {
         transform:
-            translateX(-85%)
-            rotate(-10deg)
-            translateZ(40px);
+            translateX(-125px)
+            rotate(-7deg);
     }
 
-    .cards-container.expanded .card-2 {
+
+    .card-3 {
+
         transform:
-            translateX(-50%)
-            rotate(0)
-            translateZ(100px)
-            scale(1.03);
+            translateX(125px)
+            rotate(7deg);
     }
 
-    .cards-container.expanded .card-3 {
+
+    .cards-container.expanded
+    .card-1 {
+
         transform:
-            translateX(-15%)
-            rotate(10deg)
-            translateZ(40px);
+            translateX(-190px)
+            rotate(-6deg)
+            scale(.9);
     }
 
-    /* -------------------------
-       SERVICES
-    ------------------------- */
 
-    .services {
-        padding: 80px 5%;
+    .cards-container.expanded
+    .card-3 {
+
+        transform:
+            translateX(190px)
+            rotate(6deg)
+            scale(.9);
     }
 
-    .section-heading {
-        margin-bottom: 35px;
+
+    .work-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
     }
 
-    .section-label {
-        font-size: 8px;
-        letter-spacing: 2.5px;
-    }
-
-    .section-heading h2 {
-        font-size: 40px;
-        letter-spacing: -2px;
-    }
-
-    .section-heading p {
-        font-size: 13px;
-    }
-
-    .service-grid {
-        grid-template-columns: 1fr;
-        gap: 14px;
-    }
-
-    .service-card {
-        min-height: 280px;
-        padding: 24px;
-    }
-
-    .service-icon {
-        width: 50px;
-        height: 50px;
-        margin-bottom: 38px;
-    }
-
-    .service-card h3 {
-        font-size: 22px;
-    }
-
-    .service-card p {
-        font-size: 13px;
-    }
-
-    /* -------------------------
-       CONTACT
-    ------------------------- */
-
-    .contact {
-        min-height: 65vh;
-        padding: 90px 5%;
-    }
-
-    .contact h2 {
-        font-size: 48px;
-        letter-spacing: -2.5px;
-    }
-
-    .contact p {
-        font-size: 13px;
-    }
-
-    footer {
-        padding: 22px 5%;
-        font-size: 9px;
-    }
-
-    /* Reduce heavy visual effects */
-    .hero::after {
-        opacity: .45;
-        filter: blur(70px);
-    }
-
-    .manga-card::after {
-        opacity: .45;
-    }
-
-    .manga-card {
-        will-change: transform;
-    }
-
-    .card-circle,
-    .card-lines,
-    .energy-floor {
-        will-change: transform;
-    }
-
-    .services,
-    .contact {
-        content-visibility: auto;
-        contain-intrinsic-size: 700px;
-    }
 }
 
-/* =====================================================
-   SMALL PHONES
-===================================================== */
 
-@media (max-width: 480px) {
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .navbar {
+
+        padding:
+            0 5%;
+
+        backdrop-filter:
+            blur(6px);
+
+        -webkit-backdrop-filter:
+            blur(6px);
+    }
+
+
+    .navbar nav {
+
+        display:
+            none;
+    }
+
+
+    .nav-button {
+
+        padding:
+            9px 12px;
+    }
+
+
+    /* HERO */
 
     .hero {
-        padding-left: 4%;
-        padding-right: 4%;
+
+        padding-left:
+            5%;
+
+        padding-right:
+            5%;
     }
+
 
     .hero h1 {
-        font-size: 42px;
+
+        font-size:
+            43px;
     }
+
 
     .hero-visual {
-        height: 430px;
+
+        height:
+            430px;
     }
 
-    .cards-container {
-        width: 300px;
-        height: 370px;
+
+    /* =====================================================
+       MOBILE PERFORMANCE
+    ===================================================== */
+
+    .hero::before {
+
+        width:
+            420px;
+
+        height:
+            420px;
+
+        filter:
+            blur(25px);
+
+        opacity:
+            .08;
+
+        animation:
+            none !important;
     }
+
+
+    .hero::after {
+
+        animation:
+            none !important;
+    }
+
+
+    /* =====================================================
+       CARDS
+    ===================================================== */
 
     .manga-card {
-        width: 165px;
-        height: 270px;
+
+        width:
+            155px;
+
+        height:
+            260px;
+
+        transform-style:
+            flat;
+
+        box-shadow:
+            0 0 18px
+            rgba(255,65,20,.12);
+
+        animation-duration:
+            8s !important;
     }
+
+
+    .card-1 {
+
+        transform:
+            translateX(-80px)
+            rotate(-7deg);
+    }
+
+
+    .card-2 {
+
+        transform:
+            translateY(-10px);
+    }
+
+
+    .card-3 {
+
+        transform:
+            translateX(80px)
+            rotate(7deg);
+    }
+
 
     .card-word {
-        font-size: 26px;
+
+        font-size:
+            25px;
+
+        bottom:
+            82px;
+
+        text-shadow:
+            0 0 10px
+            rgba(255,120,30,.25);
     }
+
+
+    .card-circle {
+
+        width:
+            55px;
+
+        height:
+            55px;
+
+        bottom:
+            18px;
+
+        animation-duration:
+            16s;
+    }
+
+
+    .card-circle span {
+
+        font-size:
+            15px;
+    }
+
+
+    .card-small {
+
+        top:
+            17px;
+
+        left:
+            17px;
+
+        font-size:
+            7px;
+    }
+
+
+    .card-number {
+
+        top:
+            16px;
+
+        right:
+            16px;
+
+        font-size:
+            18px;
+    }
+
+
+    .card-lines {
+
+        animation-duration:
+            15s !important;
+    }
+
+
+    .cracks {
+
+        animation-duration:
+            6s !important;
+    }
+
+
+    .manga-card::after {
+
+        animation-duration:
+            10s !important;
+    }
+
+
+    /* =====================================================
+       EXPANDED CARDS
+    ===================================================== */
+
+    .cards-container.expanded
+    .card-1 {
+
+        transform:
+            translateX(-88px)
+            translateY(15px)
+            rotate(-8deg)
+            scale(.78);
+    }
+
+
+    .cards-container.expanded
+    .card-2 {
+
+        transform:
+            translateY(-15px)
+            scale(.85);
+    }
+
+
+    .cards-container.expanded
+    .card-3 {
+
+        transform:
+            translateX(88px)
+            translateY(15px)
+            rotate(8deg)
+            scale(.78);
+    }
+
+
+    /* =====================================================
+       FLOOR
+    ===================================================== */
 
     .energy-floor {
-        width: 260px;
+
+        width:
+            330px;
+
+        height:
+            140px;
+
+        filter:
+            blur(2px);
+
+        opacity:
+            .65;
     }
 
-    .expand-hint {
-        font-size: 5px;
-        letter-spacing: 1.5px;
+
+    .energy-floor::before,
+    .energy-floor::after {
+
+        animation-duration:
+            8s !important;
     }
+
+
+    /* =====================================================
+       SERVICES
+    ===================================================== */
+
+    .service-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .service-card {
+
+        min-height:
+            270px;
+    }
+
+
+    /* =====================================================
+       ABOUT
+    ===================================================== */
+
+    .about-contact {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .contact {
+
+        border-left:
+            0;
+
+        border-top:
+            1px solid
+            #18120f;
+    }
+
+
+    .stats {
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+
+    /* =====================================================
+       ARTWORK
+    ===================================================== */
+
+    .artwork-section {
+
+        padding:
+            70px 5%;
+    }
+
+
+    .artwork-grid {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            18px;
+    }
+
+
+    .artwork-card {
+
+        min-height:
+            350px;
+    }
+
+
+    .artwork-card img {
+
+        height:
+            380px;
+    }
+
+
+    /* =====================================================
+       BUTTONS
+    ===================================================== */
 
     .hero-buttons {
-        flex-wrap: wrap;
+
+        flex-wrap:
+            wrap;
     }
+
+
+    /* =====================================================
+       PAGE TRANSITION
+    ===================================================== */
+
+    .transition-ring {
+
+        width:
+            170px;
+
+        height:
+            170px;
+
+        box-shadow:
+            0 0 25px
+            rgba(255,80,0,.20);
+    }
+
+
+    /* =====================================================
+       SELECTED WORK
+    ===================================================== */
+
+    .work-grid {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            18px;
+    }
+
+
+    .work-card {
+
+        contain:
+            layout paint;
+    }
+
+
+    .work-card video {
+
+        height:
+            auto;
+
+        max-height:
+            600px;
+
+        object-fit:
+            contain;
+    }
+
+
+    /* =====================================================
+       DISABLE TOUCH HOVER
+    ===================================================== */
+
+    .service-card:hover {
+
+        transform:
+            none;
+
+        box-shadow:
+            none;
+    }
+
+
+    .artwork-card:hover {
+
+        transform:
+            none;
+
+        box-shadow:
+            none;
+    }
+
+
+    .artwork-card:hover img {
+
+        transform:
+            none;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 450px) {
+
+    .hero-buttons {
+
+        flex-direction:
+            column;
+
+        align-items:
+            center;
+    }
+
 
     .primary-button,
     .secondary-button {
-        min-height: 41px;
+
+        width:
+            fit-content;
     }
-}
 
-/* =====================================================
-   REDUCE MOTION ACCESSIBILITY
-===================================================== */
 
-@media (prefers-reduced-motion: reduce) {
+    /* Stop expensive decorative animations */
 
-    *,
-    *::before,
-    *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
+    .hero::before,
+    .hero::after {
+
+        animation:
+            none !important;
     }
+
+
+    .card-lines,
+    .cracks,
+    .manga-card::after {
+
+        animation:
+            none !important;
+    }
+
+
+    .energy-floor::before,
+    .energy-floor::after {
+
+        animation:
+            none !important;
+    }
+
+
+    .manga-card {
+
+        box-shadow:
+            0 0 12px
+            rgba(255,65,20,.10);
+    }
+
+
+    .work-card video {
+
+        max-height:
+            500px;
+    }
+
 }
