@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Video Editing — VoidCanvas</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* ================= EDITING PAGE ================= */
+
+        .editing-page {
+            min-height: 100vh;
+            padding: 140px 7% 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .editing-page::before {
+            content: "";
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: #9b5cff;
+            opacity: .12;
+            filter: blur(120px);
+            border-radius: 50%;
+            top: 100px;
+            right: -150px;
+            animation: editGlow 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes editGlow {
+            from {
+                transform: translate(0, 0) scale(.8);
+            }
+
+            to {
+                transform: translate(-150px, 100px) scale(1.2);
+            }
+        }
+
+        .editing-hero {
+            max-width: 900px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .editing-label {
+            color: #9b5cff;
+            font-size: 11px;
+            letter-spacing: 5px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .editing-hero h1 {
+            font-size: clamp(50px, 8vw, 100px);
+            line-height: .95;
+            letter-spacing: -5px;
+            margin-bottom: 25px;
+        }
+
+        .editing-hero h1 span {
+            color: #9b5cff;
+        }
+
+        .editing-hero p {
+            max-width: 650px;
+            color: #888;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* ================= BUTTONS ================= */
+
+        .editing-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+        }
+
+        /* ================= SELECTED WORK ================= */
+
+        .demo-section {
+            margin-top: 110px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .demo-title {
+            font-size: 12px;
+            letter-spacing: 4px;
+            color: #9b5cff;
+            margin-bottom: 25px;
+        }
+
+        /* ================= VIDEO GRID ================= */
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+        }
+
+        /* ================= VIDEO CARD ================= */
+
+        .work-card {
+            position: relative;
+            border: 1px solid #29222f;
+            border-radius: 18px;
+            overflow: hidden;
+            background: #0b0a0e;
+            transition: .45s ease;
+            z-index: 2;
+        }
+
+        .work-card:hover {
+            transform: translateY(-8px);
+            border-color: #9b5cff;
+            box-shadow: 0 20px 60px rgba(155, 92, 255, .15);
+        }
+
+        /* ================= VIDEO ================= */
+
+        .work-card video {
+            width: 100%;
+            height: 420px;
+            display: block;
+            object-fit: cover;
+            background: #050507;
+        }
+
+        /* ================= NUMBER ================= */
+
+        .work-number {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            z-index: 5;
+
+            padding: 7px 10px;
+
+            border: 1px solid rgba(155, 92, 255, .5);
+            border-radius: 7px;
+
+            background: rgba(5, 5, 8, .75);
+
+            color: #9b5cff;
+
+            font-size: 10px;
+            letter-spacing: 2px;
+        }
+
+        /* ================= VIDEO INFO ================= */
+
+        .work-info {
+            padding: 22px;
+        }
+
+        .work-info span {
+            color: #9b5cff;
+            font-size: 9px;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+
+        .work-info h3 {
+            margin-top: 10px;
+            font-size: 21px;
+        }
+
+        .work-info p {
+            margin-top: 9px;
+            color: #777;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        /* ================= SERVICES ================= */
+
+        .editing-services {
+            margin-top: 100px;
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .edit-service {
+            padding: 30px;
+
+            border: 1px solid #24212a;
+
+            border-radius: 16px;
+
+            background: #0b0a0e;
+
+            transition: .4s;
+        }
+
+        .edit-service:hover {
+            transform: translateY(-8px);
+            border-color: #9b5cff;
+        }
+
+        .edit-service-number {
+            color: #9b5cff;
+
+            font-size: 10px;
+
+            letter-spacing: 3px;
+        }
+
+        .edit-service h3 {
+            margin-top: 35px;
+            font-size: 21px;
+        }
+
+        .edit-service p {
+            color: #777;
+
+            line-height: 1.7;
+
+            font-size: 13px;
+
+            margin-top: 12px;
+        }
+
+        /* ================= CTA ================= */
+
+        .editing-cta {
+            margin-top: 120px;
+
+            padding: 70px 30px;
+
+            text-align: center;
+
+            border-top: 1px solid #1c1920;
+
+            border-bottom: 1px solid #1c1920;
+        }
+
+        .editing-cta h2 {
+            font-size: clamp(35px, 5vw, 65px);
+        }
+
+        .editing-cta h2 span {
+            color: #9b5cff;
+        }
+
+        .editing-cta p {
+            color: #777;
+
+            margin: 20px auto 30px;
+
+            max-width: 550px;
+
+            line-height: 1.7;
+        }
+
+        /* ================= TABLET ================= */
+
+        @media(max-width: 1000px) {
+
+            .work-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .editing-services {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width: 800px) {
+
+            .editing-page {
+                padding: 120px 5% 60px;
+            }
+
+            .editing-hero h1 {
+                letter-spacing: -3px;
+            }
+
+            .editing-hero p {
+                font-size: 14px;
+            }
+
+            .editing-buttons {
+                flex-direction: column;
+            }
+
+            .editing-buttons a {
+                width: 100%;
+            }
+
+            .work-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .work-card video {
+                height: auto;
+                max-height: 600px;
+                object-fit: contain;
+                background: #050507;
+            }
+
+            .work-info {
+                padding: 18px;
+            }
+
+            .editing-services {
+                grid-template-columns: 1fr;
+            }
+
+            .editing-cta {
+                margin-top: 80px;
+                padding: 55px 20px;
+            }
+
+        }
+
+        /* ================= SMALL MOBILE ================= */
+
+        @media(max-width: 450px) {
+
+            .editing-page {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            .editing-hero h1 {
+                font-size: 48px;
+                letter-spacing: -3px;
+            }
+
+            .work-card video {
+                max-height: 500px;
+            }
+
+            .work-info h3 {
+                font-size: 19px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <a href="index.html" class="logo">
+
+            Void<span>Canvas</span>
+
+        </a>
+
+        <nav>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#services">
+                Services
+            </a>
+
+            <a href="index.html#contact">
+                Contact
+            </a>
+
+        </nav>
+
+        <a
+            href="index.html#contact"
+            class="nav-button"
+        >
+            Let's Work
+        </a>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="editing-page">
+
+
+        <!-- ================= HERO ================= -->
+
+        <section class="editing-hero">
+
+            <div class="editing-label">
+                01 / VIDEO EDITING
+            </div>
+
+            <h1>
+                Stories that
+                <span>move.</span>
+            </h1>
+
+            <p>
+                Cinematic video editing designed to turn
+                ordinary footage into engaging visual
+                experiences. Shorts, reels, anime edits,
+                YouTube videos and more.
+            </p>
+
+            <div class="editing-buttons">
+
+                <a
+                    href="#demo"
+                    class="primary-button"
+                >
+                    VIEW MY WORK
+                </a>
+
+                <a
+                    href="index.html#contact"
+                    class="secondary-button"
+                >
+                    HIRE ME
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SELECTED WORK ================= -->
+
+        <section
+            id="demo"
+            class="demo-section"
+        >
+
+            <div class="demo-title">
+                SELECTED WORK
+            </div>
+
+
+            <div class="work-grid">
+
+
+                <!-- ================= VIDEO 01 ================= -->
+
+                <div class="work-card">
+
+                    <div class="work-number">
+                        01
+                    </div>
+
+                    <video
+                        controls
+                        preload="metadata"
+                        playsinline
+                    >
+
+                        <source
+                            src="videos/edit.mp4"
+                            type="video/mp4"
+                        >
+
+                        Your browser does not support
+                        video playback.
+
+                    </video>
+
+
+                    <div class="work-info">
+
+                        <span>
+                            VIDEO EDITING
+                        </span>
+
+                        <h3>
+                            Creative Edit
+                        </h3>
+
+                        <p>
+                            Cinematic editing with
+                            transitions, effects and
+                            music synchronization.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= VIDEO 02 ================= -->
+
+                <div class="work-card">
+
+                    <div class="work-number">
+                        02
+                    </div>
+
+                    <video
+                        controls
+                        preload="metadata"
+                        playsinline
+                    >
+
+                        <source
+                            src="videos/edit2.mp4"
+                            type="video/mp4"
+                        >
+
+                        Your browser does not support
+                        video playback.
+
+                    </video>
+
+
+                    <div class="work-info">
+
+                        <span>
+                            VIDEO EDITING
+                        </span>
+
+                        <h3>
+                            Anime / Short Edit
+                        </h3>
+
+                        <p>
+                            Fast-paced editing with
+                            beat sync, transitions and
+                            visual effects.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SERVICES ================= -->
+
+        <section class="editing-services">
+
+
+            <div class="edit-service">
+
+                <div class="edit-service-number">
+                    01
+                </div>
+
+                <h3>
+                    Shorts & Reels
+                </h3>
+
+                <p>
+                    Fast-paced edits, transitions,
+                    captions, effects and music
+                    synchronization for short-form
+                    content.
+                </p>
+
+            </div>
+
+
+            <div class="edit-service">
+
+                <div class="edit-service-number">
+                    02
+                </div>
+
+                <h3>
+                    Anime Editing
+                </h3>
+
+                <p>
+                    Cinematic anime edits with
+                    transitions, effects, motion,
+                    sound design and beat sync.
+                </p>
+
+            </div>
+
+
+            <div class="edit-service">
+
+                <div class="edit-service-number">
+                    03
+                </div>
+
+                <h3>
+                    YouTube Videos
+                </h3>
+
+                <p>
+                    Professional cuts, pacing,
+                    subtitles, sound effects and
+                    engaging visual storytelling.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================= CTA ================= -->
+
+        <section class="editing-cta">
+
+            <h2>
+                Have a project
+                <span>in mind?</span>
+            </h2>
+
+            <p>
+                Let's turn your footage into something
+                people actually want to watch.
+            </p>
+
+            <a
+                href="index.html#contact"
+                class="primary-button"
+            >
+                START A PROJECT
+            </a>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        © 2026 VoidCanvas.
+        All rights reserved.
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

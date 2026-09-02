@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Anime Drawing — VoidCanvas</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* ================= DRAWING PAGE ================= */
+
+        .drawing-page {
+            min-height: 100vh;
+            padding: 140px 7% 80px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .drawing-page::before {
+            content: "";
+            position: absolute;
+            width: 550px;
+            height: 550px;
+            top: 80px;
+            left: -200px;
+            border-radius: 50%;
+            background: #9b5cff;
+            opacity: .1;
+            filter: blur(120px);
+            animation: artGlow 7s infinite alternate;
+        }
+
+        @keyframes artGlow {
+
+            from {
+                transform: scale(.8);
+            }
+
+            to {
+                transform:
+                    translate(250px, 100px)
+                    scale(1.3);
+            }
+        }
+
+        .drawing-hero {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .drawing-label {
+            color: #9b5cff;
+            font-size: 11px;
+            letter-spacing: 5px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .drawing-hero h1 {
+            font-size: clamp(50px, 8vw, 100px);
+            line-height: .95;
+            letter-spacing: -5px;
+        }
+
+        .drawing-hero h1 span {
+            color: #9b5cff;
+        }
+
+        .drawing-hero p {
+            max-width: 650px;
+            margin-top: 25px;
+            color: #888;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .drawing-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+        }
+
+
+        /* ================= ART GALLERY ================= */
+
+        .art-section {
+            margin-top: 110px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .art-title {
+            color: #9b5cff;
+            font-size: 11px;
+            letter-spacing: 5px;
+            margin-bottom: 25px;
+        }
+
+        .art-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .art-card {
+            height: 420px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 18px;
+            border: 1px solid #29232f;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #17121e,
+                    #08080b
+                );
+
+            transition: .5s;
+
+            cursor: pointer;
+        }
+
+        .art-card:hover {
+            transform:
+                translateY(-12px)
+                rotateX(3deg);
+
+            border-color: #9b5cff;
+
+            box-shadow:
+                0 25px 60px
+                rgba(155,92,255,.2);
+        }
+
+
+        /* ================= ART IMAGE ================= */
+
+        .art-image {
+            position: absolute;
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+
+            transition:
+                transform .7s ease,
+                filter .5s ease;
+        }
+
+        .art-card:hover .art-image {
+            transform: scale(1.06);
+            filter: brightness(1.08);
+        }
+
+
+        /* IMAGE OVERLAY */
+
+        .art-card::after {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    transparent 35%,
+                    rgba(0,0,0,.15) 50%,
+                    rgba(0,0,0,.9) 100%
+                );
+
+            z-index: 1;
+
+            pointer-events: none;
+        }
+
+
+        /* ================= ART NUMBER ================= */
+
+        .art-number {
+            position: absolute;
+
+            top: 20px;
+            left: 20px;
+
+            z-index: 3;
+
+            padding:
+                7px 10px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.2);
+
+            border-radius: 6px;
+
+            background:
+                rgba(0,0,0,.45);
+
+            backdrop-filter: blur(8px);
+
+            font-size: 10px;
+            letter-spacing: 3px;
+
+            color: #fff;
+        }
+
+
+        /* ================= ART INFO ================= */
+
+        .art-info {
+            position: absolute;
+
+            left: 22px;
+            right: 22px;
+            bottom: 20px;
+
+            z-index: 3;
+        }
+
+        .art-info h3 {
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .art-info p {
+            margin-top: 7px;
+
+            color: #aaa;
+
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .art-tag {
+            display: inline-block;
+
+            margin-bottom: 9px;
+
+            color: #9b5cff;
+
+            font-size: 9px;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+
+
+        /* ================= PROCESS ================= */
+
+        .drawing-process {
+            margin-top: 120px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .process-title {
+            color: #9b5cff;
+            font-size: 11px;
+            letter-spacing: 5px;
+            margin-bottom: 35px;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .process-card {
+            padding: 28px;
+
+            border:
+                1px solid
+                #242029;
+
+            border-radius: 15px;
+
+            background: #0b0a0e;
+
+            transition: .4s;
+        }
+
+        .process-card:hover {
+            transform: translateY(-7px);
+            border-color: #9b5cff;
+        }
+
+        .process-card span {
+            color: #9b5cff;
+            font-size: 10px;
+            letter-spacing: 3px;
+        }
+
+        .process-card h3 {
+            margin-top: 30px;
+            font-size: 18px;
+        }
+
+        .process-card p {
+            margin-top: 12px;
+            color: #666;
+            line-height: 1.7;
+            font-size: 12px;
+        }
+
+
+        /* ================= CTA ================= */
+
+        .drawing-cta {
+            margin-top: 120px;
+
+            padding:
+                70px 20px;
+
+            text-align: center;
+
+            border-top:
+                1px solid #1c1920;
+
+            border-bottom:
+                1px solid #1c1920;
+        }
+
+        .drawing-cta h2 {
+            font-size:
+                clamp(
+                    35px,
+                    5vw,
+                    65px
+                );
+        }
+
+        .drawing-cta h2 span {
+            color: #9b5cff;
+        }
+
+        .drawing-cta p {
+            color: #777;
+            max-width: 550px;
+            margin: 20px auto 30px;
+            line-height: 1.7;
+        }
+
+
+        /* ================= TABLET ================= */
+
+        @media(max-width:800px) {
+
+            .drawing-page {
+                padding:
+                    120px 5% 60px;
+            }
+
+            .drawing-hero h1 {
+                letter-spacing: -3px;
+            }
+
+            .art-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .process-grid {
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+            .drawing-buttons {
+                flex-direction: column;
+            }
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width:500px) {
+
+            .art-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .art-card {
+                height: 430px;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .drawing-hero h1 {
+                font-size: 48px;
+            }
+
+            .drawing-hero p {
+                font-size: 14px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <a
+            href="index.html"
+            class="logo">
+
+            Void<span>Canvas</span>
+
+        </a>
+
+
+        <nav>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#services">
+                Services
+            </a>
+
+            <a href="index.html#contact">
+                Contact
+            </a>
+
+        </nav>
+
+
+        <a
+            href="index.html#contact"
+            class="nav-button">
+
+            Let's Work
+
+        </a>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="drawing-page">
+
+
+        <!-- ================= HERO ================= -->
+
+        <section class="drawing-hero">
+
+            <div class="drawing-label">
+
+                02 / ANIME ART
+
+            </div>
+
+
+            <h1>
+
+                Characters
+                <span>come alive.</span>
+
+            </h1>
+
+
+            <p>
+
+                Anime-style character artwork created
+                with attention to expressions, details,
+                poses and personality. From original
+                characters to custom portraits.
+
+            </p>
+
+
+            <div class="drawing-buttons">
+
+                <a
+                    href="#gallery"
+                    class="primary-button">
+
+                    VIEW ARTWORK
+
+                </a>
+
+
+                <a
+                    href="index.html#contact"
+                    class="secondary-button">
+
+                    COMMISSION ME
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= GALLERY ================= -->
+
+        <section
+            id="gallery"
+            class="art-section">
+
+
+            <div class="art-title">
+
+                SELECTED ARTWORK
+
+            </div>
+
+
+
+            <div class="art-grid">
+
+
+                <!-- ARTWORK 01 -->
+
+                <div class="art-card">
+
+                    <div class="art-number">
+                        ART / 01
+                    </div>
+
+
+                    <img
+                        src="artwork/artwork1.png"
+                        alt="Anime Character Artwork"
+                        class="art-image">
+
+
+                    <div class="art-info">
+
+                        <div class="art-tag">
+                            CHARACTER ART
+                        </div>
+
+                        <h3>
+                            Anime Character
+                        </h3>
+
+                        <p>
+                            Anime character illustration
+                            and expression design.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ARTWORK 02 -->
+
+                <div class="art-card">
+
+                    <div class="art-number">
+                        ART / 02
+                    </div>
+
+
+                    <img
+                        src="artwork/artwork2.png"
+                        alt="Anime Character Illustration"
+                        class="art-image">
+
+
+                    <div class="art-info">
+
+                        <div class="art-tag">
+                            CHARACTER DESIGN
+                        </div>
+
+                        <h3>
+                            Character Portrait
+                        </h3>
+
+                        <p>
+                            Anime-inspired character
+                            portrait artwork.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ARTWORK 03 -->
+
+                <div class="art-card">
+
+                    <div class="art-number">
+                        ART / 03
+                    </div>
+
+
+                    <img
+                        src="artwork/artwork3.jpg"
+                        alt="Manga Scene Artwork"
+                        class="art-image">
+
+
+                    <div class="art-info">
+
+                        <div class="art-tag">
+                            MANGA ART
+                        </div>
+
+                        <h3>
+                            Manga Scene
+                        </h3>
+
+                        <p>
+                            Black and white manga
+                            scene illustration.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ARTWORK 04 -->
+
+                <div class="art-card">
+
+                    <div class="art-number">
+                        ART / 04
+                    </div>
+
+
+                    <img
+                        src="artwork/artwork4.jpg"
+                        alt="Manga Panel Artwork"
+                        class="art-image">
+
+
+                    <div class="art-info">
+
+                        <div class="art-tag">
+                            MANGA PANEL
+                        </div>
+
+                        <h3>
+                            Story Illustration
+                        </h3>
+
+                        <p>
+                            Manga-style storytelling
+                            and character composition.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= PROCESS ================= -->
+
+        <section class="drawing-process">
+
+
+            <div class="process-title">
+
+                HOW IT WORKS
+
+            </div>
+
+
+            <div class="process-grid">
+
+
+                <div class="process-card">
+
+                    <span>
+                        01
+                    </span>
+
+                    <h3>
+                        Idea
+                    </h3>
+
+                    <p>
+                        You share your character
+                        idea, reference or concept.
+                    </p>
+
+                </div>
+
+
+
+                <div class="process-card">
+
+                    <span>
+                        02
+                    </span>
+
+                    <h3>
+                        Sketch
+                    </h3>
+
+                    <p>
+                        I create the initial
+                        character composition.
+                    </p>
+
+                </div>
+
+
+
+                <div class="process-card">
+
+                    <span>
+                        03
+                    </span>
+
+                    <h3>
+                        Details
+                    </h3>
+
+                    <p>
+                        Line art, colors,
+                        lighting and details.
+                    </p>
+
+                </div>
+
+
+
+                <div class="process-card">
+
+                    <span>
+                        04
+                    </span>
+
+                    <h3>
+                        Final
+                    </h3>
+
+                    <p>
+                        Final artwork delivered
+                        in high quality.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= CTA ================= -->
+
+        <section class="drawing-cta">
+
+
+            <h2>
+
+                Bring your
+                <span>character</span>
+                to life.
+
+            </h2>
+
+
+            <p>
+
+                Have a character in mind?
+                Let's turn your idea into anime art.
+
+            </p>
+
+
+            <a
+                href="index.html#contact"
+                class="primary-button">
+
+                START A COMMISSION
+
+            </a>
+
+
+        </section>
+
+
+    </main>
+    
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        © 2026 VoidCanvas.
+        All rights reserved.
+
+    </footer>
+
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

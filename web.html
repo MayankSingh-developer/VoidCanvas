@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Web Development — VoidCanvas</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .web-page {
+
+            min-height: 100vh;
+
+            padding:
+                140px 7% 80px;
+
+            overflow: hidden;
+
+            position: relative;
+        }
+
+        .web-page::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 550px;
+            height: 550px;
+
+            right: -200px;
+            top: 100px;
+
+            border-radius: 50%;
+
+            background: #9b5cff;
+
+            opacity: .1;
+
+            filter: blur(120px);
+
+            animation:
+                webGlow
+                7s
+                ease-in-out
+                infinite alternate;
+        }
+
+        @keyframes webGlow {
+
+            from {
+                transform: scale(.8);
+            }
+
+            to {
+                transform:
+                    translate(-200px,100px)
+                    scale(1.3);
+            }
+        }
+
+        .web-hero {
+
+            position: relative;
+
+            z-index: 2;
+
+            max-width: 900px;
+        }
+
+        .web-label {
+
+            color: #9b5cff;
+
+            font-size: 11px;
+
+            letter-spacing: 5px;
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+        }
+
+        .web-hero h1 {
+
+            font-size:
+                clamp(50px,8vw,100px);
+
+            line-height: .95;
+
+            letter-spacing: -5px;
+        }
+
+        .web-hero h1 span {
+
+            color: #9b5cff;
+        }
+
+        .web-hero p {
+
+            max-width: 650px;
+
+            margin-top: 25px;
+
+            color: #888;
+
+            line-height: 1.8;
+
+            font-size: 16px;
+        }
+
+        .web-buttons {
+
+            display: flex;
+
+            gap: 15px;
+
+            margin-top: 35px;
+        }
+
+
+        /* PROJECTS */
+
+        .projects {
+
+            margin-top: 110px;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+        .projects-title {
+
+            color: #9b5cff;
+
+            font-size: 11px;
+
+            letter-spacing: 5px;
+
+            margin-bottom: 25px;
+        }
+
+        .project-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap: 20px;
+        }
+
+        .project-card {
+
+            min-height: 350px;
+
+            padding: 30px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            border:
+                1px solid #24212a;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #141018,
+                    #08080b
+                );
+
+            transition: .5s;
+        }
+
+        .project-card:hover {
+
+            transform:
+                translateY(-12px);
+
+            border-color:
+                #9b5cff;
+
+            box-shadow:
+                0 25px 60px
+                rgba(155,92,255,.18);
+        }
+
+        .project-number {
+
+            color: #555;
+
+            font-size: 10px;
+
+            letter-spacing: 3px;
+        }
+
+        .project-screen {
+
+            height: 170px;
+
+            margin-top: 30px;
+
+            border:
+                1px solid #38274d;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: #9b5cff;
+
+            font-size: 30px;
+
+            background: #09080c;
+
+            box-shadow:
+                inset 0 0 30px
+                rgba(155,92,255,.06);
+        }
+
+        .project-card h3 {
+
+            margin-top: 25px;
+
+            font-size: 21px;
+        }
+
+        .project-card p {
+
+            margin-top: 10px;
+
+            color: #666;
+
+            line-height: 1.6;
+
+            font-size: 12px;
+        }
+
+
+        /* STACK */
+
+        .stack {
+
+            margin-top: 110px;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+        .stack-title {
+
+            color: #9b5cff;
+
+            font-size: 11px;
+
+            letter-spacing: 5px;
+
+            margin-bottom: 30px;
+        }
+
+        .stack-list {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+        }
+
+        .tech {
+
+            padding:
+                12px 20px;
+
+            border:
+                1px solid #29232f;
+
+            border-radius: 30px;
+
+            color: #aaa;
+
+            font-size: 12px;
+
+            transition: .3s;
+        }
+
+        .tech:hover {
+
+            color: white;
+
+            border-color:
+                #9b5cff;
+
+            transform:
+                translateY(-4px);
+        }
+
+
+        /* CTA */
+
+        .web-cta {
+
+            margin-top: 120px;
+
+            padding: 70px 20px;
+
+            text-align: center;
+
+            border-top:
+                1px solid #1c1920;
+
+            border-bottom:
+                1px solid #1c1920;
+        }
+
+        .web-cta h2 {
+
+            font-size:
+                clamp(35px,5vw,65px);
+        }
+
+        .web-cta h2 span {
+
+            color: #9b5cff;
+        }
+
+        .web-cta p {
+
+            max-width: 550px;
+
+            margin: 20px auto 30px;
+
+            color: #777;
+
+            line-height: 1.7;
+        }
+
+
+        @media(max-width:800px) {
+
+            .web-page {
+
+                padding:
+                    120px 5% 60px;
+            }
+
+            .project-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+            .web-buttons {
+
+                flex-direction: column;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <a href="index.html"
+           class="logo">
+
+            Void<span>Canvas</span>
+
+        </a>
+
+
+        <nav>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#services">
+                Services
+            </a>
+
+            <a href="index.html#contact">
+                Contact
+            </a>
+
+        </nav>
+
+
+        <a
+            href="index.html#contact"
+            class="nav-button">
+
+            Let's Work
+
+        </a>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="web-page">
+
+
+        <!-- HERO -->
+
+        <section class="web-hero">
+
+            <div class="web-label">
+                03 / WEB DEVELOPMENT
+            </div>
+
+            <h1>
+
+                Websites
+                <span>that feel alive.</span>
+
+            </h1>
+
+            <p>
+
+                Modern, responsive and interactive websites
+                designed to give brands and creators a strong
+                digital presence.
+
+            </p>
+
+
+            <div class="web-buttons">
+
+                <a
+                    href="#projects"
+                    class="primary-button">
+
+                    VIEW PROJECTS
+
+                </a>
+
+
+                <a
+                    href="index.html#contact"
+                    class="secondary-button">
+
+                    BUILD WITH ME
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- PROJECTS -->
+
+        <section
+            class="projects"
+            id="projects">
+
+            <div class="projects-title">
+                SELECTED PROJECTS
+            </div>
+
+
+            <div class="project-grid">
+
+
+                <div class="project-card">
+
+                    <div class="project-number">
+                        PROJECT / 01
+                    </div>
+
+                    <div class="project-screen">
+                        &lt;/&gt;
+                    </div>
+
+                    <h3>
+                        Creative Portfolio
+                    </h3>
+
+                    <p>
+                        A modern portfolio website
+                        for creators and freelancers.
+                    </p>
+
+                </div>
+
+
+                <div class="project-card">
+
+                    <div class="project-number">
+                        PROJECT / 02
+                    </div>
+
+                    <div class="project-screen">
+                        ◇
+                    </div>
+
+                    <h3>
+                        Business Website
+                    </h3>
+
+                    <p>
+                        Responsive website designed
+                        for a modern business.
+                    </p>
+
+                </div>
+
+
+                <div class="project-card">
+
+                    <div class="project-number">
+                        PROJECT / 03
+                    </div>
+
+                    <div class="project-screen">
+                        ◎
+                    </div>
+
+                    <h3>
+                        Interactive Web App
+                    </h3>
+
+                    <p>
+                        Interactive interface with
+                        smooth animations and effects.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- TECH STACK -->
+
+        <section class="stack">
+
+            <div class="stack-title">
+                TECHNOLOGIES
+            </div>
+
+
+            <div class="stack-list">
+
+                <div class="tech">
+                    HTML
+                </div>
+
+                <div class="tech">
+                    CSS
+                </div>
+
+                <div class="tech">
+                    JavaScript
+                </div>
+
+                <div class="tech">
+                    React
+                </div>
+
+                <div class="tech">
+                    Node.js
+                </div>
+
+                <div class="tech">
+                    Git
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CTA -->
+
+        <section class="web-cta">
+
+            <h2>
+
+                Let's build
+                <span>something great.</span>
+
+            </h2>
+
+            <p>
+
+                Have a website idea?
+                Let's turn it into a real experience.
+
+            </p>
+
+
+            <a
+                href="index.html#contact"
+                class="primary-button">
+
+                START A PROJECT
+
+            </a>
+
+        </section>
+
+
+    </main>
+
+
+    <footer>
+
+        © 2026 VoidCanvas.
+        All rights reserved.
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
