@@ -268,9 +268,11 @@
             display: grid;
 
             grid-template-columns:
-                repeat(2, 1fr);
+                repeat(2, minmax(0, 1fr));
 
             gap: 25px;
+
+            align-items: start;
 
         }
 
@@ -320,10 +322,11 @@
 
         /* =====================================================
            VIDEO
-           
+
            IMPORTANT:
-           object-fit: contain
-           means video will NOT be cropped.
+           No 16:9 fixed ratio.
+           No cover.
+           Video will not be cropped.
         ===================================================== */
 
         .editing-card video {
@@ -334,7 +337,7 @@
 
             height: auto;
 
-            max-height: 650px;
+            max-height: 700px;
 
             object-fit: contain;
 
@@ -418,8 +421,17 @@
                     #ffe45c
                 );
 
+            background-size:
+                200% 200%;
+
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+
+            animation:
+                editingColorShift
+                4s
+                ease
+                infinite;
 
         }
 
@@ -442,139 +454,6 @@
             font-size: 12px;
 
             line-height: 1.7;
-
-        }
-
-
-        /* =====================================================
-           CAPTION WRITING
-        ===================================================== */
-
-        .caption-service {
-
-            margin-top: 25px;
-
-            padding: 35px;
-
-            position: relative;
-
-            overflow: hidden;
-
-            border:
-                1px solid
-                rgba(255, 120, 0, .18);
-
-            border-radius: 12px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    #0e0b0b,
-                    #070709
-                );
-
-            transition:
-                transform .4s ease,
-                border-color .4s ease,
-                box-shadow .4s ease;
-
-        }
-
-
-        .caption-service::before {
-
-            content: "";
-
-            position: absolute;
-
-            width: 220px;
-            height: 220px;
-
-            right: -100px;
-            top: -100px;
-
-            border-radius: 50%;
-
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(255, 120, 0, .13),
-                    transparent 70%
-                );
-
-            pointer-events: none;
-
-        }
-
-
-        .caption-service:hover {
-
-            transform:
-                translateY(-7px);
-
-            border-color:
-                rgba(255, 157, 0, .55);
-
-            box-shadow:
-                0 20px 45px
-                rgba(255, 100, 0, .10);
-
-        }
-
-
-        .caption-number {
-
-            color: #555;
-
-            font-size: 10px;
-
-            letter-spacing: 3px;
-
-            font-weight: 800;
-
-        }
-
-
-        .caption-icon {
-
-            margin-top: 25px;
-
-            font-size: 35px;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    #ff3b30,
-                    #ff9d00,
-                    #ffe45c
-                );
-
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-
-        }
-
-
-        .caption-service h3 {
-
-            margin-top: 15px;
-
-            font-size: 25px;
-
-        }
-
-
-        .caption-service p {
-
-            max-width: 700px;
-
-            margin-top: 12px;
-
-            color: #777;
-
-            line-height: 1.7;
-
-            font-size: 13px;
 
         }
 
@@ -851,6 +730,7 @@
             .editing-page::before {
 
                 width: 350px;
+
                 height: 350px;
 
                 right: -180px;
@@ -938,10 +818,14 @@
 
                 gap: 18px;
 
+                width: 100%;
+
             }
 
 
             .editing-card {
+
+                width: 100%;
 
                 border-radius: 10px;
 
@@ -949,14 +833,17 @@
 
 
             /*
-               MOBILE VIDEO FIX
+               IMPORTANT MOBILE VIDEO FIX
 
-               No fixed 16:9 ratio.
-               No object-fit: cover.
-               Full video remains visible.
+               No fixed height.
+               No 16:9 ratio.
+               No cover.
+               Full video visible.
             */
 
             .editing-card video {
+
+                display: block;
 
                 width: 100%;
 
@@ -986,31 +873,6 @@
             .editing-info p {
 
                 font-size: 11px;
-
-            }
-
-
-            /* CAPTION */
-
-            .caption-service {
-
-                margin-top: 18px;
-
-                padding: 25px;
-
-            }
-
-
-            .caption-service h3 {
-
-                font-size: 22px;
-
-            }
-
-
-            .caption-service p {
-
-                font-size: 12px;
 
             }
 
@@ -1261,7 +1123,7 @@
 
 
                 <!-- =========================================
-                     VIDEO 01
+                     EDIT 01
                 ========================================== -->
 
                 <article class="editing-card">
@@ -1316,7 +1178,7 @@
 
 
                 <!-- =========================================
-                     VIDEO 02
+                     EDIT 02 — CAPTION WRITING
                 ========================================== -->
 
                 <article class="editing-card">
@@ -1342,23 +1204,23 @@
 
                         <div class="editing-tag">
 
-                            SHORT FORM EDIT
+                            CAPTION WRITING
 
                         </div>
 
 
                         <h3>
 
-                            Social Media Edit
+                            Caption Writing
 
                         </h3>
 
 
                         <p>
 
-                            Fast-paced editing created
-                            for reels, shorts and social
-                            media audiences.
+                            Creative and engaging captions
+                            written to connect with your
+                            audience and increase engagement.
 
                         </p>
 
@@ -1367,54 +1229,6 @@
 
 
                 </article>
-
-
-            </div>
-
-
-
-            <!-- =============================================
-                 CAPTION WRITING
-            ============================================== -->
-
-            <div class="caption-service">
-
-
-                <div class="caption-number">
-
-                    03 / CONTENT
-
-                </div>
-
-
-                <div class="caption-icon">
-
-                    ✎
-
-                </div>
-
-
-                <div class="editing-tag">
-
-                    CAPTION WRITING
-
-                </div>
-
-
-                <h3>
-
-                    Caption Writing
-
-                </h3>
-
-
-                <p>
-
-                    Creative and engaging captions
-                    written to connect with your
-                    audience and increase engagement.
-
-                </p>
 
 
             </div>

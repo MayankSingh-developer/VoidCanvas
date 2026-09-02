@@ -247,6 +247,7 @@ if (
         playLetters
     );
 
+
 }
 
 
@@ -255,6 +256,9 @@ if (
    DESKTOP = 38
    TABLET = 18
    MOBILE = 10
+
+   COLOUR:
+   PURPLE + MAGENTA + BLUE
 ===================================================== */
 
 const hero =
@@ -303,13 +307,45 @@ if (hero) {
             Math.random() * 3 + 1;
 
 
+        /*
+            Screenshot theme:
+            Purple
+            Magenta
+            Blue
+        */
+
+        const particleColors = [
+            {
+                main: "#9b5cff",
+                glow: "#c45cff"
+            },
+            {
+                main: "#ff4fd8",
+                glow: "#ff7be5"
+            },
+            {
+                main: "#4f8cff",
+                glow: "#78a8ff"
+            }
+        ];
+
+
+        const color =
+            particleColors[
+                Math.floor(
+                    Math.random() *
+                    particleColors.length
+                )
+            ];
+
+
         particle.style.cssText = `
             position:absolute;
             width:${size}px;
             height:${size}px;
             border-radius:50%;
-            background:#ff7b18;
-            box-shadow:0 0 10px #ffb52e;
+            background:${color.main};
+            box-shadow:0 0 10px ${color.glow};
             left:${Math.random() * 100}%;
             top:${Math.random() * 100}%;
             pointer-events:none;
@@ -530,12 +566,12 @@ function updateNavbar() {
     ) {
 
         navbar.style.background =
-            "rgba(3,3,5,.96)";
+            "rgba(3,3,8,.96)";
 
     } else {
 
         navbar.style.background =
-            "rgba(3,3,5,.72)";
+            "rgba(3,3,8,.72)";
 
     }
 
