@@ -1,209 +1,226 @@
 /* =====================================================
-   VOIDCANVAS — FINAL JAVASCRIPT
+   VOIDCANVAS — OPTIMIZED JAVASCRIPT
 ===================================================== */
 
 
-/* ================= LETTER ANIMATION ================= */
+/* =====================================================
+   LETTER ANIMATION
+===================================================== */
 
 function splitText(element) {
 
     if (!element) return;
 
-    if (element.dataset.split === "true") {
+    // Already processed
+    if (element.dataset.split === "true") return;
+
+    // IMPORTANT:
+    // Agar element ke andar existing HTML hai
+    // jaise <span>, <b> etc. to uska HTML destroy
+    // nahi karna.
+
+    if (element.children.length > 0) {
         return;
     }
 
-    element.dataset.split = "true";
+    const text = element.textContent.trim();
 
-    const text =
-        element.textContent.trim();
+    if (!text) return;
+
+    element.dataset.split = "true";
 
     element.innerHTML = "";
 
-    const words =
-        text.split(/\s+/);
+    const words = text.split(/\s+/);
 
-    words.forEach(
-        (word, wordIndex) => {
+    words.forEach((word, wordIndex) => {
 
-            const wordElement =
-                document.createElement("span");
+        const wordElement = document.createElement("span");
 
-            wordElement.className =
-                "word";
+        wordElement.className = "word";
 
-            [...word].forEach(
-                character => {
+        [...word].forEach(character => {
 
-                    const letter =
-                        document.createElement("span");
+            const letter = document.createElement("span");
 
-                    letter.className =
-                        "letter";
+            letter.className = "letter";
 
-                    letter.textContent =
-                        character;
+            letter.textContent = character;
 
-                    wordElement.appendChild(
-                        letter
-                    );
+            wordElement.appendChild(letter);
+        });
 
-                }
-            );
+        element.appendChild(wordElement);
+
+        if (wordIndex < words.length - 1) {
 
             element.appendChild(
-                wordElement
+                document.createTextNode(" ")
             );
-
-            if (
-                wordIndex <
-                words.length - 1
-            ) {
-
-                element.appendChild(
-                    document.createTextNode(" ")
-                );
-
-            }
-
         }
-    );
+    });
 }
 
 
-/* ================= ANIMATED TEXT ================= */
+/* =====================================================
+   ANIMATED ELEMENTS
+===================================================== */
 
-const animated =
-    document.querySelectorAll(
-        ".eyebrow," +
-        "h1," +
-        ".hero-description," +
-        ".hero-text," +
-        ".hero-buttons a," +
-        ".scroll-indicator span," +
-        ".section-label," +
-        ".section-heading h2," +
-        ".section-heading p," +
-        ".service-card h3," +
-        ".service-card p," +
-        ".service-link," +
-        ".about h2," +
-        ".about p," +
-        ".contact h2," +
-        ".contact p," +
-        ".contact-button," +
-        "footer"
-    );
-
-
-animated.forEach(
-    splitText
+const animated = document.querySelectorAll(
+    ".eyebrow," +
+    "h1," +
+    ".hero-description," +
+    ".hero-text," +
+    ".hero-buttons a," +
+    ".scroll-indicator span," +
+    ".section-label," +
+    ".section-heading h2," +
+    ".section-heading p," +
+    ".service-card h3," +
+    ".service-card p," +
+    ".service-link," +
+    ".about h2," +
+    ".about p," +
+    ".contact h2," +
+    ".contact p," +
+    ".contact-button," +
+    "footer"
 );
 
 
-/* ================= PLAY LETTERS ================= */
+/*
+   Only split simple text elements.
+
+   This prevents:
+   <h1>We create things <span>worth remembering.</span></h1>
+
+   from losing its gradient span.
+*/
+
+animated.forEach(element => {
+
+    if (element.children.length === 0) {
+        splitText(element);
+    }
+});
+
+
+/* =====================================================
+   PLAY LETTERS
+===================================================== */
 
 function playLetters(element) {
 
     if (!element) return;
 
-    if (
-        element.dataset.played ===
-        "true"
-    ) {
+    if (element.dataset.played === "true") {
         return;
     }
 
-    element.dataset.played =
-        "true";
+    element.dataset.played = "true";
 
     const letters =
-        element.querySelectorAll(
-            ".letter"
-        );
+        element.querySelectorAll(".letter");
 
-    letters.forEach(
-        (letter, index) => {
+    letters.forEach((letter, index) => {
 
-            setTimeout(
-                () => {
+        setTimeout(() => {
 
-                    letter.classList.add(
-                        "show"
-                    );
+            letter.classList.add("show");
 
-                },
-                index * 18
-            );
-
-        }
-    );
+        }, index * 18);
+    });
 }
 
 
-/* ================= SCROLL OBSERVER ================= */
+/* =====================================================
+   INTERSECTION OBSERVER
+===================================================== */
 
-const observer =
-    new IntersectionObserver(
-        entries => {
+if ("IntersectionObserver" in window) {
 
-            entries.forEach(
-                entry => {
+    const observer =
+        new IntersectionObserver(
+            entries => {
 
-                    if (
-                        entry.isIntersecting
-                    ) {
+                entries.forEach(entry => {
 
-                        playLetters(
-                            entry.target
-                        );
+                    if (entry.isIntersecting) {
 
+                        playLetters(entry.target);
+
+                        observer.unobserve(entry.target);
                     }
+                });
 
-                }
-            );
-
-        },
-        {
-            threshold: .12
-        }
-    );
-
-
-animated.forEach(
-    element => {
-
-        observer.observe(
-            element
+            },
+            {
+                threshold: 0.12
+            }
         );
 
-    }
-);
+    animated.forEach(element => {
+
+        if (
+            element.querySelector(".letter")
+        ) {
+            observer.observe(element);
+        }
+    });
+
+} else {
+
+    animated.forEach(element => {
+
+        playLetters(element);
+
+    });
+}
 
 
-/* ================= PARTICLES ================= */
+/* =====================================================
+   PARTICLES — MOBILE OPTIMIZED
+===================================================== */
 
 const hero =
     document.querySelector(".hero");
 
-
 if (hero) {
 
-    for (
-        let i = 0;
-        i < 38;
-        i++
-    ) {
+    let particleCount = 38;
+
+    if (window.innerWidth <= 480) {
+
+        particleCount = 10;
+
+    } else if (window.innerWidth <= 768) {
+
+        particleCount = 18;
+    }
+
+
+    /*
+       Use DocumentFragment so browser doesn't
+       continuously repaint while creating particles.
+    */
+
+    const fragment =
+        document.createDocumentFragment();
+
+
+    for (let i = 0; i < particleCount; i++) {
 
         const particle =
-            document.createElement(
-                "span"
-            );
+            document.createElement("span");
+
+
+        const size =
+            Math.random() * 3 + 1;
 
         particle.style.cssText = `
             position:absolute;
-            width:${Math.random() * 3 + 1}px;
-            height:${Math.random() * 3 + 1}px;
+            width:${size}px;
+            height:${size}px;
             border-radius:50%;
             background:#ff7b18;
             box-shadow:0 0 10px #ffb52e;
@@ -213,25 +230,23 @@ if (hero) {
             z-index:0;
         `;
 
+
         particle.animate(
             [
                 {
                     opacity: 0,
-
                     transform:
                         "translateY(40px) scale(.3)"
                 },
 
                 {
                     opacity: 1,
-
                     transform:
                         "translateY(-20px) scale(1)"
                 },
 
                 {
                     opacity: 0,
-
                     transform:
                         "translateY(-220px) scale(.5)"
                 }
@@ -244,21 +259,22 @@ if (hero) {
                 delay:
                     Math.random() * 5000,
 
-                iterations:
-                    Infinity
+                iterations: Infinity
             }
         );
 
-        hero.appendChild(
-            particle
-        );
 
+        fragment.appendChild(particle);
     }
 
+
+    hero.appendChild(fragment);
 }
 
 
-/* ================= CARD EXPAND ================= */
+/* =====================================================
+   CARD EXPAND
+===================================================== */
 
 const cardsContainer =
     document.getElementById(
@@ -281,21 +297,23 @@ if (cardsContainer) {
 
             if (!card) return;
 
-            expanded =
-                !expanded;
+
+            expanded = !expanded;
+
 
             cardsContainer.classList.toggle(
                 "expanded",
                 expanded
             );
-
         }
     );
-
 }
 
 
-/* ================= 3D MOUSE ================= */
+/* =====================================================
+   3D MOUSE
+   DESKTOP ONLY
+===================================================== */
 
 const visual =
     document.querySelector(
@@ -303,9 +321,16 @@ const visual =
     );
 
 
+const hasFinePointer =
+    window.matchMedia(
+        "(pointer: fine)"
+    ).matches;
+
+
 if (
     visual &&
-    cardsContainer
+    cardsContainer &&
+    hasFinePointer
 ) {
 
     visual.addEventListener(
@@ -314,31 +339,31 @@ if (
 
             if (expanded) return;
 
+
             const rect =
                 visual.getBoundingClientRect();
 
+
             const rotateX =
                 (
-                    (event.clientY -
-                    rect.top) /
-                    rect.height -
-                    .5
+                    (
+                        (event.clientY - rect.top) /
+                        rect.height
+                    ) - 0.5
                 ) * -5;
+
 
             const rotateY =
                 (
-                    (event.clientX -
-                    rect.left) /
-                    rect.width -
-                    .5
+                    (
+                        (event.clientX - rect.left) /
+                        rect.width
+                    ) - 0.5
                 ) * 7;
 
-            cardsContainer.style.transform =
-                `
-                rotateX(${rotateX}deg)
-                rotateY(${rotateY}deg)
-                `;
 
+            cardsContainer.style.transform =
+                `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         }
     );
 
@@ -349,14 +374,14 @@ if (
 
             cardsContainer.style.transform =
                 "";
-
         }
     );
-
 }
 
 
-/* ================= NAVBAR ================= */
+/* =====================================================
+   NAVBAR
+===================================================== */
 
 const navbar =
     document.querySelector(
@@ -364,31 +389,39 @@ const navbar =
     );
 
 
+function updateNavbar() {
+
+    if (!navbar) return;
+
+
+    if (window.scrollY > 40) {
+
+        navbar.style.background =
+            "rgba(3,3,5,.96)";
+
+    } else {
+
+        navbar.style.background =
+            "rgba(3,3,5,.72)";
+    }
+}
+
+
 window.addEventListener(
     "scroll",
-    () => {
-
-        if (!navbar) return;
-
-        if (
-            window.scrollY > 40
-        ) {
-
-            navbar.style.background =
-                "rgba(3,3,5,.96)";
-
-        } else {
-
-            navbar.style.background =
-                "rgba(3,3,5,.72)";
-
-        }
-
+    updateNavbar,
+    {
+        passive: true
     }
 );
 
 
-/* ================= PAGE TRANSITION ================= */
+updateNavbar();
+
+
+/* =====================================================
+   PAGE TRANSITION
+===================================================== */
 
 const transition =
     document.getElementById(
@@ -404,8 +437,9 @@ const serviceLinks =
     );
 
 
-serviceLinks.forEach(
-    link => {
+if (transition) {
+
+    serviceLinks.forEach(link => {
 
         link.addEventListener(
             "click",
@@ -413,40 +447,42 @@ serviceLinks.forEach(
 
                 event.preventDefault();
 
+
                 const destination =
                     link.href;
+
 
                 transition.classList.remove(
                     "close"
                 );
 
+
                 transition.classList.add(
                     "open"
                 );
 
-                setTimeout(
-                    () => {
 
-                        window.location.href =
-                            destination;
+                setTimeout(() => {
 
-                    },
-                    800
-                );
+                    window.location.href =
+                        destination;
 
+                }, 800);
             }
         );
+    });
+}
 
-    }
-);
 
+/* =====================================================
+   HOME LINK
+===================================================== */
 
-/* ================= HOME ================= */
-
-document.querySelectorAll(
-    'a[href="#home"]'
-).forEach(
-    link => {
+document
+    .querySelectorAll(
+        'a[href="#home"]'
+    )
+    .forEach(link => {
 
         link.addEventListener(
             "click",
@@ -454,20 +490,27 @@ document.querySelectorAll(
 
                 event.preventDefault();
 
-                document
-                    .querySelector("#home")
-                    .scrollIntoView({
+
+                const home =
+                    document.querySelector(
+                        "#home"
+                    );
+
+
+                if (home) {
+
+                    home.scrollIntoView({
                         behavior: "smooth"
                     });
-
+                }
             }
         );
-
-    }
-);
+    });
 
 
-/* ================= PAGE SHOW ================= */
+/* =====================================================
+   PAGE SHOW
+===================================================== */
 
 window.addEventListener(
     "pageshow",
@@ -475,67 +518,69 @@ window.addEventListener(
 
         if (!transition) return;
 
+
         transition.classList.remove(
             "open",
             "close"
         );
-
     }
 );
 
 
-/* ================= AUTO CARD FOCUS ================= */
+/* =====================================================
+   AUTO CARD FOCUS
+===================================================== */
 
 let autoStep = 0;
 
 
-setInterval(
-    () => {
+setInterval(() => {
 
-        if (
-            !cardsContainer ||
-            expanded
-        ) {
-            return;
-        }
+    if (!cardsContainer) return;
 
-        autoStep =
-            (autoStep + 1) % 3;
+    if (expanded) return;
 
-        const cards =
-            cardsContainer.querySelectorAll(
-                ".manga-card"
-            );
 
-        cards.forEach(
-            card => {
-
-                card.classList.remove(
-                    "focus-card"
-                );
-
-            }
+    const cards =
+        cardsContainer.querySelectorAll(
+            ".manga-card"
         );
 
-        cards[
-            autoStep
-        ].classList.add(
+
+    if (!cards.length) return;
+
+
+    autoStep =
+        (autoStep + 1) %
+        cards.length;
+
+
+    cards.forEach(card => {
+
+        card.classList.remove(
+            "focus-card"
+        );
+    });
+
+
+    const activeCard =
+        cards[autoStep];
+
+
+    if (!activeCard) return;
+
+
+    activeCard.classList.add(
+        "focus-card"
+    );
+
+
+    setTimeout(() => {
+
+        activeCard.classList.remove(
             "focus-card"
         );
 
-        setTimeout(
-            () => {
+    }, 1200);
 
-                cards[
-                    autoStep
-                ].classList.remove(
-                    "focus-card"
-                );
-
-            },
-            1200
-        );
-
-    },
-    4000
-);
+}, 4000);
